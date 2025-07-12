@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Walmart Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="walmart-logo">
+                        <span class="blue">Walmart</span>
+                    </span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Walmart.com">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="user-actions">
+                <a href="#"><i class="fas fa-user"></i> Sign In</a>
+                <a href="orders.html"><i class="fas fa-box"></i> Orders</a>
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">2</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#"><i class="fas fa-bars"></i> Departments</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Grocery</a></li>
+                <li><a href="#">Electronics</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Clothing</a></li>
+                <li><a href="#">Toys</a></li>
+                <li><a href="#">Clearance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cart Section -->
+    <section class="cart-section container">
+        <div class="cart-header">
+            <h1>Your Cart (2 items)</h1>
+            <a href="index.html" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+        </div>
+        
+        <div class="cart-content">
+            <div class="cart-items">
+                <!-- Cart Item 1 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/100" alt="Apple AirPods Pro">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">Apple AirPods Pro (2nd Generation)</h3>
+                        <div class="item-price">$199.99</div>
+                        <div class="item-availability"><i class="fas fa-check-circle"></i> In stock</div>
+                        <div class="item-delivery">Free delivery <strong>Tomorrow</strong></div>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="qty-minus">-</button>
+                                <input type="number" value="1" min="1" max="5">
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="save-for-later"><i class="far fa-bookmark"></i> Save for later</button>
+                            <button class="remove-item"><i class="far fa-trash-alt"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Item 2 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/100" alt="Samsung 55" 4K Smart TV">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">Samsung 55" 4K Smart TV</h3>
+                        <div class="item-price">$499.99</div>
+                        <div class="item-availability"><i class="fas fa-check-circle"></i> In stock</div>
+                        <div class="item-delivery">Free delivery <strong>Tomorrow</strong></div>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button class="qty-minus">-</button>
+                                <input type="number" value="1" min="1" max="5">
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="save-for-later"><i class="far fa-bookmark"></i> Save for later</button>
+                            <button class="remove-item"><i class="far fa-trash-alt"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Saved for Later -->
+                <div class="saved-for-later">
+                    <h3>Saved for later (1 item)</h3>
+                    <div class="saved-item">
+                        <div class="item-image">
+                            <img src="https://via.placeholder.com/100" alt="Instant Pot Duo 7-in-1">
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-title">Instant Pot Duo 7-in-1</h3>
+                            <div class="item-price">$79.99</div>
+                            <div class="item-actions">
+                                <button class="move-to-cart">Move to cart</button>
+                                <button class="remove-item"><i class="far fa-trash-alt"></i> Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cart-summary">
+                <div class="summary-card">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Subtotal (2 items)</span>
+                        <span>$699.98</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span>FREE</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax</span>
+                        <span>$49.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Estimated Total</span>
+                        <span>$748.98</span>
+                    </div>
+                  <button class="checkout-btn" id="checkoutBtn">Continue to Checkout</button>
+
+<script>
+    document.getElementById('checkoutBtn').addEventListener('click', function() {
+        window.location.href = 'checkout.html';
+    });
+</script>
+
+                    <div class="payment-methods">
+                        <img src="assets\visa.png" alt="Visa">
+                        <img src="assets\mt_images-article_mastercardblack_body_1540x1032.webp" alt="Mastercard">
+                        <img src="https://www.americanexpress.com/content/dam/amex/us/merchant/supplies-uplift/product/images/img-WEBLOGO1-01.jpg" alt="Amex">
+                        <img src="assets\discover.png" alt="Discover">
+                        <img src="assets\paypal-icon.webp" alt="PayPal">
+                    </div>
+                    <div class="secure-checkout">
+                        <i class="fas fa-lock"></i> Secure checkout
+                    </div>
+                </div>
+                
+                <div class="promo-code">
+                    <h3>Promo Code</h3>
+                    <input type="text" placeholder="Enter promo code">
+                    <button class="apply-btn">Apply</button>
+                </div>
+                
+                <div class="pickup-savings">
+                    <h3><i class="fas fa-store"></i> Pickup Savings</h3>
+                    <p>Choose free pickup at your nearest store and save on delivery fees.</p>
+                    <button class="find-store-btn">Find a store</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recently Viewed -->
+    <section class="recently-viewed container">
+        <h2 class="section-title">Recently Viewed</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://imgs.search.brave.com/a6N8m4En84Th-PBUiLiIRBctVYZ7rjHeSmm8be7eCfE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nYW1lc3RvcC5j/b20vaS9nYW1lc3Rv/cC8xMTA5NTgxOV9B/TFQwMS9OaW50ZW5k/by1Td2l0Y2gtQ29u/c29sZT8kcGRwJA" alt="Product Image">
+                <h3>Nintendo Switch - Neon</h3>
+                <div class="price">
+                    <span class="current-price">$299.99</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(1876)</span>
+                </div>
+                <button class="add-to-cart" data-id="4">Add to Cart</button>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://imgs.search.brave.com/zZCcrNRxfbMmhNKuid7m9kczmjzDAmQHzd3E-5cmHvg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/Y2l0eXBuZy5jb20v/cHVibGljL3VwbG9h/ZHMvcHJldmlldy9o/ZC1ibHVlLWFwcGxl/LXNtYXJ0LXdhdGNo/LXNlcmllcy02LXBu/Zy03MDQwODE2OTQ2/MjIxNzBvZ2Z1bHVj/eHc1LnBuZz92PTIw/MjUwMjEwMDQ" alt="Product Image">
+                <h3>Apple Watch Series 8</h3>
+                <div class="price">
+                    <span class="current-price">$399.00</span>
+                    <span class="old-price">$429.00</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(932)</span>
+                </div>
+                <button class="add-to-cart" data-id="9">Add to Cart</button>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/710exCeNPJL._AC_SY450_.jpg" alt="Product Image">
+                <h3>Echo Dot (5th Gen)</h3>
+                <div class="price">
+                    <span class="current-price">$49.99</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(2453)</span>
+                </div>
+                <button class="add-to-cart" data-id="10">Add to Cart</button>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/31kTNmpm6vL._SX300_SY300_QL70_FMwebp_.jpg" alt="Product Image">
+                <h3>PlayStation 5 Console</h3>
+                <div class="price">
+                    <span class="current-price">$499.99</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>(3210)</span>
+                </div>
+                <button class="add-to-cart" data-id="11">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Corporate</a></li>
+                        <li><a href="#">Investors</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Grocery Delivery</a></li>
+                        <li><a href="#">Money Center</a></li>
+                        <li><a href="#">Photo Center</a></li>
+                        <li><a href="#">Auto Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect With Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Walmart Clone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

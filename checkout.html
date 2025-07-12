@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Walmart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Walmart Color Scheme */
+        :root {
+            --walmart-blue: #0071dc;
+            --walmart-yellow: #ffc220;
+            --walmart-dark-blue: #004f9a;
+            --light-gray: #f7f7f7;
+            --medium-gray: #e6e6e6;
+            --dark-gray: #333;
+            --success-green: #007f5f;
+            --error-red: #d62b1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        .checkout-header {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .checkout-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .logo a {
+            color: var(--walmart-blue);
+            text-decoration: none;
+        }
+
+        .checkout-steps {
+            display: flex;
+            gap: 30px;
+        }
+
+        .checkout-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .checkout-step.active {
+            color: var(--walmart-blue);
+        }
+
+        .checkout-step-number {
+            width: 24px;
+            height: 24px;
+            background-color: var(--walmart-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .checkout-step.active .checkout-step-number {
+            background-color: var(--walmart-yellow);
+            color: #333;
+        }
+
+        /* Checkout Layout */
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin: 30px auto;
+        }
+
+        /* Checkout Main */
+        .checkout-main {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .checkout-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .checkout-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .edit-link {
+            color: var(--walmart-blue);
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        /* Shipping Address */
+        .shipping-address {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--walmart-blue);
+            box-shadow: 0 0 0 2px rgba(0, 113, 220, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        /* Payment Method */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .payment-method.selected {
+            border-color: var(--walmart-blue);
+            background-color: rgba(0, 113, 220, 0.05);
+        }
+
+        .payment-method-icon {
+            width: 40px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .payment-method-icon img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .payment-method-info {
+            flex-grow: 1;
+        }
+
+        .payment-method-name {
+            font-weight: 500;
+        }
+
+        .payment-method-details {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Credit Card Form */
+        .credit-card-form {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .credit-card-form.active {
+            display: block;
+        }
+
+        .card-icons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 25px;
+            background-color: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .card-number-group {
+            position: relative;
+        }
+
+        .card-type-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 20px;
+            display: none;
+        }
+
+        .card-type-icon.active {
+            display: block;
+        }
+
+        .card-expiry-cvv {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Order Summary */
+        .checkout-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .order-summary {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .order-summary-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .order-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .order-item-image {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+        }
+
+        .order-item-image img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .order-item-details {
+            flex-grow: 1;
+        }
+
+        .order-item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .order-item-price {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .order-item-qty {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .order-summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .order-summary-total {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .place-order-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--walmart-yellow);
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+
+        .place-order-btn:hover {
+            background-color: #e6ac00;
+        }
+
+        .secure-checkout {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            justify-content: center;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-sidebar {
+                order: -1;
+                position: static;
+                margin-bottom: 30px;
+            }
+            
+            .checkout-steps {
+                gap: 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .shipping-address {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            
+            .checkout-header .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .checkout-steps {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .checkout-step {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .checkout-step-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .card-expiry-cvv {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #333;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Checkout Header -->
+    <header class="checkout-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Walmart</a>
+            </div>
+            <div class="checkout-steps">
+                <div class="checkout-step active">
+                    <div class="checkout-step-number">1</div>
+                    <div class="checkout-step-text">Shipping</div>
+                </div>
+                <div class="checkout-step">
+                    <div class="checkout-step-number">2</div>
+                    <div class="checkout-step-text">Payment</div>
+                </div>
+                <div class="checkout-step">
+                    <div class="checkout-step-number">3</div>
+                    <div class="checkout-step-text">Review</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Checkout Main Content -->
+    <main class="container">
+        <div class="checkout-container">
+            <!-- Checkout Form -->
+            <div class="checkout-main">
+                <!-- Shipping Address Section -->
+                <section class="checkout-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Shipping address</h2>
+                    </div>
+                    <form id="shippingForm" class="shipping-address">
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select id="state" name="state" required>
+                                <option value="">Select state</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <!-- Add all other states -->
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">ZIP code</label>
+                            <input type="text" id="zipCode" name="zipCode" pattern="\d{5}(-\d{4})?" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="phone">Phone number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group full-width checkbox-group">
+                            <input type="checkbox" id="saveAddress" name="saveAddress">
+                            <label for="saveAddress">Save this address for future use</label>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Delivery Options Section -->
+                <section class="checkout-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Delivery options</h2>
+                    </div>
+                    <div class="delivery-options">
+                        <div class="delivery-option selected">
+                            <input type="radio" id="standardDelivery" name="deliveryOption" value="standard" checked>
+                            <label for="standardDelivery">
+                                <strong>Standard Shipping</strong>
+                                <span>FREE</span>
+                                <span>Arrives by Thu, Oct 26</span>
+                            </label>
+                        </div>
+                        <div class="delivery-option">
+                            <input type="radio" id="expressDelivery" name="deliveryOption" value="express">
+                            <label for="expressDelivery">
+                                <strong>Express Shipping</strong>
+                                <span>$7.99</span>
+                                <span>Arrives by Tue, Oct 24</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payment Method Section -->
+                <section class="checkout-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Payment method</h2>
+                    </div>
+                    <div class="payment-methods">
+                        <div class="payment-method selected" data-method="credit">
+                            <div class="payment-method-icon">
+                                <img src="assets\visa.png" alt="Credit Card">
+                            </div>
+                            <div class="payment-method-info">
+                                <div class="payment-method-name">Credit / Debit Card</div>
+                                <div class="payment-method-details">Visa, Mastercard, American Express, Discover</div>
+                            </div>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="payment-method" data-method="paypal">
+                            <div class="payment-method-icon">
+                                <img src="assets\paypal-icon.webp" alt="PayPal" >
+                            </div>
+                            <div class="payment-method-info">
+                                <div class="payment-method-name">PayPal</div>
+                                <div class="payment-method-details">Check out faster with PayPal</div>
+                            </div>
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+
+                    <!-- Credit Card Form (shown when credit card is selected) -->
+                    <form id="creditCardForm" class="credit-card-form active">
+                        <div class="card-icons">
+                            <div class="card-icon">
+                                <img src="assets\visa.png" alt="Visa" style="height:30px ;">
+                            </div>
+                            <div class="card-icon">
+                                <img src="assets\mt_images-article_mastercardblack_body_1540x1032.webp" alt="Mastercard">
+                            </div>
+                            <div class="card-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Amex" style="width: 30px;">
+                            </div>
+                            <div class="card-icon">
+                                <img src="assets\discover.png" alt="Discover">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardNumber">Card number</label>
+                            <div class="card-number-group">
+                                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                <div class="card-type-icon" id="cardTypeIcon"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardName">Name on card</label>
+                            <input type="text" id="cardName" name="cardName" required>
+                        </div>
+                        <div class="card-expiry-cvv">
+                            <div class="form-group">
+                                <label for="cardExpiry">Expiration date</label>
+                                <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/YY" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardCvv">Security code</label>
+                                <input type="text" id="cardCvv" name="cardCvv" placeholder="CVV" required>
+                            </div>
+                        </div>
+                        <div class="form-group full-width checkbox-group">
+                            <input type="checkbox" id="saveCard" name="saveCard">
+                            <label for="saveCard">Save this card for future purchases</label>
+                        </div>
+                    </form>
+
+                    <!-- PayPal Form (hidden by default) -->
+                    <div id="paypalForm" class="credit-card-form">
+                        <div class="form-group full-width">
+                            <p>You'll be redirected to PayPal to complete your purchase securely.</p>
+                            <button type="button" class="paypal-button" style="background-color: #003087; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer;">
+                                <i class="fab fa-paypal"></i> Continue with PayPal
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Review Button -->
+                <div class="continue-button">
+                    <button type="button" id="continueToPayment" class="place-order-btn">Continue to payment</button>
+                </div>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <aside class="checkout-sidebar">
+                <div class="order-summary">
+                    <h3 class="order-summary-title">Order summary</h3>
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="order-item-image">
+                                <img src="https://imgs.search.brave.com/4UkzQ2Gm9zhfj7tDWGrzS1ZhUmSxREAwCAAB0Nhymd4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbGx1c3RyYXRp/b24tYWlycG9kcy1w/cm8tMmctd2l0aG91/dC1iYWNrZ3JvdW5k/LWdlbmVyYXRpdmUt/YWlfNzU2NDA1LTcw/MTc5LmpwZz9zZW10/PWFpc19pdGVtc19i/b29zdGVkJnc9NzQw" alt="Apple AirPods Pro">
+                            </div>
+                            <div class="order-item-details">
+                                <div class="order-item-name">Apple AirPods Pro (2nd Generation)</div>
+                                <div class="order-item-price">$199.99</div>
+                                <div class="order-item-qty">Qty: 1</div>
+                            </div>
+                        </div>
+                        <div class="order-item">
+                            <div class="order-item-image">
+                                <img src="https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn" alt="Samsung 55" 4K Smart TV">
+                            </div>
+                            <div class="order-item-details">
+                                <div class="order-item-name">Samsung 55" 4K Smart TV</div>
+                                <div class="order-item-price">$499.99</div>
+                                <div class="order-item-qty">Qty: 1</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-summary-row">
+                        <span>Subtotal (2 items)</span>
+                        <span>$699.98</span>
+                    </div>
+                    <div class="order-summary-row">
+                        <span>Shipping</span>
+                        <span>FREE</span>
+                    </div>
+                    <div class="order-summary-row">
+                        <span>Tax</span>
+                        <span>$49.00</span>
+                    </div>
+                    <div class="order-summary-row order-summary-total">
+                        <span>Estimated Total</span>
+                        <span>$748.98</span>
+                    </div>
+                    <button type="button" id="placeOrderBtn" class="place-order-btn">
+                        <span id="placeOrderText">Place your order</span>
+                        <span id="placeOrderSpinner" class="spinner" style="display: none;"></span>
+                    </button>
+                    <div class="secure-checkout">
+                        <i class="fas fa-lock"></i>
+                        <span>Secure checkout</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Payment method selection
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            const creditCardForm = document.getElementById('creditCardForm');
+            const paypalForm = document.getElementById('paypalForm');
+            
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    // Remove selected class from all methods
+                    paymentMethods.forEach(m => m.classList.remove('selected'));
+                    
+                    // Add selected class to clicked method
+                    this.classList.add('selected');
+                    
+                    // Show the corresponding form
+                    const methodType = this.getAttribute('data-method');
+                    if (methodType === 'credit') {
+                        creditCardForm.classList.add('active');
+                        paypalForm.classList.remove('active');
+                    } else if (methodType === 'paypal') {
+                        creditCardForm.classList.remove('active');
+                        paypalForm.classList.add('active');
+                    }
+                });
+            });
+
+            // Card type detection
+            const cardNumberInput = document.getElementById('cardNumber');
+            const cardTypeIcon = document.getElementById('cardTypeIcon');
+            
+            cardNumberInput.addEventListener('input', function() {
+                const cardNumber = this.value.replace(/\s+/g, '');
+                let cardType = '';
+                
+                // Visa
+                if (/^4/.test(cardNumber)) {
+                    cardType = 'visa';
+                } 
+                // Mastercard
+                else if (/^5[1-5]/.test(cardNumber)) {
+                    cardType = 'mastercard';
+                } 
+                // Amex
+                else if (/^3[47]/.test(cardNumber)) {
+                    cardType = 'amex';
+                } 
+                // Discover
+                else if (/^6(?:011|5)/.test(cardNumber)) {
+                    cardType = 'discover';
+                }
+                
+                // Update card type icon
+                if (cardType) {
+                    cardTypeIcon.innerHTML = `<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${cardType}/${cardType}-original.svg" alt="${cardType}">`;
+                    cardTypeIcon.classList.add('active');
+                } else {
+                    cardTypeIcon.classList.remove('active');
+                }
+                
+                // Add spaces after every 4 digits for better readability
+                if (cardNumber.length > 0 && cardNumber.length <= 16 && /^\d+$/.test(cardNumber)) {
+                    this.value = cardNumber.match(/.{1,4}/g).join(' ');
+                }
+            });
+
+            // Expiry date formatting
+            const expiryInput = document.getElementById('cardExpiry');
+            
+            expiryInput.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                
+                if (value.length > 2) {
+                    this.value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                }
+            });
+
+            // CVV formatting
+            const cvvInput = document.getElementById('cardCvv');
+            
+            cvvInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').slice(0, 4);
+            });
+
+            // ZIP code formatting
+            const zipInput = document.getElementById('zipCode');
+            
+            zipInput.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                
+                if (value.length > 5) {
+                    this.value = value.slice(0, 5) + '-' + value.slice(5, 9);
+                }
+            });
+
+            // Phone number formatting
+            const phoneInput = document.getElementById('phone');
+            
+            phoneInput.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                
+                if (value.length > 3 && value.length <= 6) {
+                    this.value = '(' + value.slice(0, 3) + ') ' + value.slice(3);
+                } else if (value.length > 6) {
+                    this.value = '(' + value.slice(0, 3) + ') ' + value.slice(3, 6) + '-' + value.slice(6, 10);
+                }
+            });
+
+            // Form validation and submission
+            const shippingForm = document.getElementById('shippingForm');
+            const continueBtn = document.getElementById('continueToPayment');
+            const placeOrderBtn = document.getElementById('placeOrderBtn');
+            
+            continueBtn.addEventListener('click', function() {
+                // Validate shipping form
+                let isValid = true;
+                const requiredInputs = shippingForm.querySelectorAll('[required]');
+                
+                requiredInputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        input.style.borderColor = 'var(--error-red)';
+                        isValid = false;
+                    } else {
+                        input.style.borderColor = '';
+                    }
+                });
+                
+                // Special validation for ZIP code
+                const zipCode = zipInput.value.trim();
+                if (!/^\d{5}(-\d{4})?$/.test(zipCode)) {
+                    zipInput.style.borderColor = 'var(--error-red)';
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Move to next step (payment)
+                    document.querySelector('.checkout-step:nth-child(1)').classList.remove('active');
+                    document.querySelector('.checkout-step:nth-child(2)').classList.add('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                    
+                    // Hide shipping section, show payment section
+                    document.querySelectorAll('.checkout-section')[0].style.display = 'none';
+                    document.querySelectorAll('.checkout-section')[1].style.display = 'none';
+                    document.querySelectorAll('.checkout-section')[2].style.display = 'block';
+                    
+                    // Change button text
+                    continueBtn.style.display = 'none';
+                    placeOrderBtn.style.display = 'block';
+                } else {
+                    alert('Please fill out all required fields correctly.');
+                }
+            });
+            
+            placeOrderBtn.addEventListener('click', function() {
+                // Validate payment form
+                let isValid = true;
+                const paymentMethod = document.querySelector('.payment-method.selected').getAttribute('data-method');
+                
+                if (paymentMethod === 'credit') {
+                    const cardNumber = cardNumberInput.value.replace(/\s+/g, '');
+                    const cardName = document.getElementById('cardName').value.trim();
+                    const cardExpiry = document.getElementById('cardExpiry').value.trim();
+                    const cardCvv = document.getElementById('cardCvv').value.trim();
+                    
+                    if (!/^\d{13,16}$/.test(cardNumber)) {
+                        cardNumberInput.style.borderColor = 'var(--error-red)';
+                        isValid = false;
+                    }
+                    
+                    if (!cardName) {
+                        document.getElementById('cardName').style.borderColor = 'var(--error-red)';
+                        isValid = false;
+                    }
+                    
+                    if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) {
+                        document.getElementById('cardExpiry').style.borderColor = 'var(--error-red)';
+                        isValid = false;
+                    }
+                    
+                    if (!/^\d{3,4}$/.test(cardCvv)) {
+                        document.getElementById('cardCvv').style.borderColor = 'var(--error-red)';
+                        isValid = false;
+                    }
+                }
+                
+                if (isValid) {
+                    // Show loading spinner
+                    document.getElementById('placeOrderText').style.display = 'none';
+                    document.getElementById('placeOrderSpinner').style.display = 'inline-block';
+                    placeOrderBtn.disabled = true;
+                    
+                    // Simulate API call
+                    setTimeout(function() {
+                        // In a real app, this would submit the form to your backend
+                        alert('Order placed successfully! Thank you for your purchase.');
+                        
+                        // Redirect to order confirmation page
+                        window.location.href = 'order-confirmation.html';
+                    }, 2000);
+                } else {
+                    alert('Please fill out all payment information correctly.');
+                }
+            });
+
+            // Delivery option selection
+            const deliveryOptions = document.querySelectorAll('.delivery-option');
+            
+            deliveryOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    deliveryOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    
+                    // Update the radio button
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    
+                    // Update order summary if needed
+                    if (radio.value === 'express') {
+                        document.querySelector('.order-summary-row:nth-child(2) span:last-child').textContent = '$7.99';
+                        document.querySelector('.order-summary-total span:last-child').textContent = '$756.97';
+                    } else {
+                        document.querySelector('.order-summary-row:nth-child(2) span:last-child').textContent = 'FREE';
+                        document.querySelector('.order-summary-total span:last-child').textContent = '$748.98';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

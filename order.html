@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Walmart Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="walmart-logo">
+                        <span class="blue">Walmart</span>
+                    </span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Walmart.com">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="user-actions">
+                <a href="#"><i class="fas fa-user"></i> John D.</a>
+                <a href="orders.html" class="active"><i class="fas fa-box"></i> Orders</a>
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#"><i class="fas fa-bars"></i> Departments</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Grocery</a></li>
+                <li><a href="#">Electronics</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Clothing</a></li>
+                <li><a href="#">Toys</a></li>
+                <li><a href="#">Clearance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-container container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-name">Adam Hill</div>
+                <div class="user-email">adamhill@example.com</div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-box"></i> My Orders</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i> My Lists</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> Account Settings</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Address Book</a></li>
+                    <li><a href="#"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
+                    <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <div class="mathi">
+                <h1>My Orders</h1>
+           
+            </div>
+            
+            <!-- Order Filters -->
+            <div class="order-filters">
+                <div class="filter-tabs">
+                    <button class="active">All Orders</button>
+                    <button>Pending</button>
+                    <button>Delivered</button>
+                    <button>Cancelled</button>
+                </div>
+                <div class="search-orders">
+                    <input type="text" placeholder="Search orders">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            
+            <!-- Orders List -->
+            <div class="orders-list">
+                <!-- Order 1 -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-number">Order #WMT-2023-987654</div>
+                            <div class="order-date">Placed on October 15, 2023</div>
+                        </div>
+                        <div class="order-status delivered">
+                            <i class="fas fa-check-circle"></i> Delivered on October 17, 2023
+                        </div>
+                        <div class="order-total">$748.98</div>
+                    </div>
+                    <div class="order-items">
+                        <!-- Order Item 1 -->
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://imgs.search.brave.com/4UkzQ2Gm9zhfj7tDWGrzS1ZhUmSxREAwCAAB0Nhymd4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbGx1c3RyYXRp/b24tYWlycG9kcy1w/cm8tMmctd2l0aG91/dC1iYWNrZ3JvdW5k/LWdlbmVyYXRpdmUt/YWlfNzU2NDA1LTcw/MTc5LmpwZz9zZW10/PWFpc19pdGVtc19i/b29zdGVkJnc9NzQw" alt="Apple AirPods Pro">
+                            </div>
+                            <div class="item-details">
+                                <h3 class="item-title">Apple AirPods Pro (2nd Generation)</h3>
+                                <div class="item-price">$199.99</div>
+                                <div class="item-quantity">Quantity: 1</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="buy-again">Buy it again</button>
+                                <button class="view-product">View product</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Order Item 2 -->
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn" alt="Samsung 55" 4K Smart TV">
+                            </div>
+                            <div class="item-details">
+                                <h3 class="item-title">Samsung 55" 4K Smart TV</h3>
+                                <div class="item-price">$499.99</div>
+                                <div class="item-quantity">Quantity: 1</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="buy-again">Buy it again</button>
+                                <button class="view-product">View product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-footer">
+                        <button class="track-order"><i class="fas fa-truck"></i> Track package</button>
+                        <button class="leave-review"><i class="fas fa-star"></i> Leave a review</button>
+                        <button class="return-item"><i class="fas fa-undo"></i> Start a return</button>
+                    </div>
+                </div>
+                
+                <!-- Order 2 -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <div class="order-number">Order #WMT-2023-123456</div>
+                            <div class="order-date">Placed on September 28, 2023</div>
+                        </div>
+                        <div class="order-status delivered">
+                            <i class="fas fa-check-circle"></i> Delivered on September 30, 2023
+                        </div>
+                        <div class="order-total">$129.97</div>
+                    </div>
+                    <div class="order-items">
+                        <!-- Order Item 1 -->
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://imgs.search.brave.com/id7G0a7b50yWnkgjQtZghfB7aRHyB9mSfee4sCxHSJM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/MzFrSS1IOVZoMEwu/anBn" alt="Instant Pot Duo 7-in-1">
+                            </div>
+                            <div class="item-details">
+                                <h3 class="item-title">Instant Pot Duo 7-in-1</h3>
+                                <div class="item-price">$79.99</div>
+                                <div class="item-quantity">Quantity: 1</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="buy-again">Buy it again</button>
+                                <button class="view-product">View product</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Order Item 2 -->
+                        <div class="order-item">
+                            <div class="item-image">
+                                <img src="https://m.media-amazon.com/images/I/710exCeNPJL._AC_SY450_.jpg" alt="Echo Dot (5th Gen)">
+                            </div>
+                            <div class="item-details">
+                                <h3 class="item-title">Echo Dot (5th Gen)</h3>
+                                <div class="item-price">$49.99</div>
+                                <div class="item-quantity">Quantity: 1</div>
+                            </div>
+                            <div class="item-actions">
+                                <button class="buy-again">Buy it again</button>
+                                <button class="view-product">View product</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-footer">
+                        <button class="track-order"><i class="fas fa-truck"></i> Track package</button>
+                        <button class="leave-review"><i class="fas fa-star"></i> Leave a review</button>
+                        <button class="return-item"><i class="fas fa-undo"></i> Start a return</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order History Pagination -->
+            <div class="pagination">
+                <button disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                <span>Page 1 of 1</span>
+                <button disabled>Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Corporate</a></li>
+                        <li><a href="#">Investors</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Grocery Delivery</a></li>
+                        <li><a href="#">Money Center</a></li>
+                        <li><a href="#">Photo Center</a></li>
+                        <li><a href="#">Auto Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect With Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Walmart Clone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

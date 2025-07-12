@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Name - Walmart Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="walmart-logo">
+                        <span class="blue">Walmart</span>
+                    </span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Walmart.com">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="user-actions">
+                <a href="#"><i class="fas fa-user"></i> Sign In</a>
+                <a href="orders.html"><i class="fas fa-box"></i> Orders</a>
+                <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">0</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#"><i class="fas fa-bars"></i> Departments</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Grocery</a></li>
+                <li><a href="#">Electronics</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Clothing</a></li>
+                <li><a href="#">Toys</a></li>
+                <li><a href="#">Clearance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb container">
+        <a href="index.html">Home</a> > 
+        <a href="#">Electronics</a> > 
+        <a href="#">Headphones</a> > 
+        <span>Apple AirPods Pro</span>
+    </div>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail container">
+        <div class="product-gallery">
+            <div class="main-image">
+                <img src="https://via.placeholder.com/500" alt="Apple AirPods Pro">
+            </div>
+            <div class="thumbnail-images">
+                <img src="https://via.placeholder.com/100" alt="Thumbnail 1">
+                <img src="https://via.placeholder.com/100" alt="Thumbnail 2">
+                <img src="https://via.placeholder.com/100" alt="Thumbnail 3">
+                <img src="https://via.placeholder.com/100" alt="Thumbnail 4">
+            </div>
+        </div>
+        <div class="product-info">
+            <h1>Apple AirPods Pro (2nd Generation)</h1>
+            <div class="brand">by Apple</div>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>4.5 (1245 reviews)</span>
+                <a href="#">See all reviews</a>
+            </div>
+            <div class="price">
+                <span class="current-price">$199.99</span>
+                <span class="old-price">$249.99</span>
+                <span class="discount">20% off</span>
+            </div>
+            <div class="availability">
+                <i class="fas fa-check-circle"></i> In stock (only 5 left)
+            </div>
+            <div class="delivery-options">
+                <p><i class="fas fa-truck"></i> Free delivery <strong>Tomorrow</strong></p>
+                <p><i class="fas fa-store"></i> Pickup available at <strong>Your Local Store</strong></p>
+            </div>
+            <div class="product-options">
+                <div class="option">
+                    <label>Color:</label>
+                    <select>
+                        <option>White</option>
+                        <option>Black</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <label>Quantity:</label>
+                    <div class="quantity-selector">
+                        <button class="qty-minus">-</button>
+                        <input type="number" value="1" min="1" max="5">
+                        <button class="qty-plus">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="add-to-cart-btn" data-id="1">Add to Cart</button>
+                <button class="buy-now-btn">Buy Now</button>
+                <button class="wishlist-btn"><i class="far fa-heart"></i> Add to Wishlist</button>
+            </div>
+            <div class="product-highlights">
+                <h3>Highlights</h3>
+                <ul>
+                    <li>Active Noise Cancellation blocks outside noise</li>
+                    <li>Transparency mode for hearing and interacting with the world around you</li>
+                    <li>Spatial audio with dynamic head tracking places sound all around you</li>
+                    <li>Adaptive EQ automatically tunes music to your ears</li>
+                    <li>Sweat and water resistant</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Tabs -->
+    <section class="product-tabs container">
+        <div class="tabs-header">
+            <button class="tab-btn active" data-tab="description">Description</button>
+            <button class="tab-btn" data-tab="specs">Specifications</button>
+            <button class="tab-btn" data-tab="reviews">Reviews</button>
+            <button class="tab-btn" data-tab="qna">Q&A</button>
+        </div>
+        <div class="tabs-content">
+            <div id="description" class="tab-panel active">
+                <h3>Product Description</h3>
+                <p>The Apple AirPods Pro (2nd generation) feature Active Noise Cancellation that reduces unwanted background noise, and Adaptive Transparency that lets outside sounds in while reducing loud environmental noise. Designed to create an optimized fit—and to stay comfortable—they come with four pairs of silicone tips (XS, S, M, L) to fit a wide range of ears.</p>
+                <p>The MagSafe Charging Case delivers more than 24 hours of battery life and includes a speaker for locating with Find My and a lanyard loop. And with one-touch setup, your AirPods Pro connect magically to your iPhone or Apple Watch.</p>
+            </div>
+            <div id="specs" class="tab-panel">
+                <h3>Technical Specifications</h3>
+                <table>
+                    <tr>
+                        <th>Brand</th>
+                        <td>Apple</td>
+                    </tr>
+                    <tr>
+                        <th>Model</th>
+                        <td>AirPods Pro (2nd generation)</td>
+                    </tr>
+                    <tr>
+                        <th>Color</th>
+                        <td>White</td>
+                    </tr>
+                    <tr>
+                        <th>Connectivity</th>
+                        <td>Bluetooth 5.3</td>
+                    </tr>
+                    <tr>
+                        <th>Battery Life</th>
+                        <td>Up to 6 hours (ANC on), 30 hours with case</td>
+                    </tr>
+                    <tr>
+                        <th>Water Resistance</th>
+                        <td>IPX4 (Sweat and water resistant)</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="reviews" class="tab-panel">
+                <h3>Customer Reviews</h3>
+                <div class="review-summary">
+                    <div class="overall-rating">
+                        <span>4.5</span>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>1,245 reviews</p>
+                    </div>
+                    <div class="rating-distribution">
+                        <div class="rating-bar">
+                            <span>5 star</span>
+                            <div class="bar"><div class="fill" style="width: 70%;"></div></div>
+                            <span>70%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span>4 star</span>
+                            <div class="bar"><div class="fill" style="width: 20%;"></div></div>
+                            <span>20%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span>3 star</span>
+                            <div class="bar"><div class="fill" style="width: 5%;"></div></div>
+                            <span>5%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span>2 star</span>
+                            <div class="bar"><div class="fill" style="width: 3%;"></div></div>
+                            <span>3%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span>1 star</span>
+                            <div class="bar"><div class="fill" style="width: 2%;"></div></div>
+                            <span>2%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="customer-reviews">
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer">John D.</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="review-date">October 15, 2023</div>
+                        </div>
+                        <div class="review-title">Best wireless earbuds I've owned</div>
+                        <div class="review-content">
+                            <p>The noise cancellation is incredible. I can't hear anything when I have these in. The sound quality is excellent and they fit perfectly in my ears. Battery life is great too. Worth every penny!</p>
+                        </div>
+                    </div>
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer">Sarah M.</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="review-date">October 10, 2023</div>
+                        </div>
+                        <div class="review-title">Great but expensive</div>
+                        <div class="review-content">
+                            <p>These are definitely high quality earbuds with great features. The only reason I didn't give 5 stars is because of the price. They're quite expensive compared to other options, but you do get what you pay for.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="qna" class="tab-panel">
+                <h3>Questions & Answers</h3>
+                <div class="question">
+                    <div class="question-text">Does this come with a warranty?</div>
+                    <div class="answer">
+                        <p>Yes, Apple provides a 1-year limited warranty with these AirPods Pro.</p>
+                    </div>
+                </div>
+                <div class="question">
+                    <div class="question-text">Are these compatible with Android phones?</div>
+                    <div class="answer">
+                        <p>Yes, while they're optimized for Apple devices, they will work with any Bluetooth-enabled device including Android phones. However, some features like Siri and automatic switching between devices may not be available.</p>
+                    </div>
+                </div>
+                <button class="ask-question-btn">Ask a Question</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended Products -->
+    <section class="recommended-products container">
+        <h2 class="section-title">You may also like</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200" alt="Product Image">
+                <h3>Apple AirPods (3rd Generation)</h3>
+                <div class="price">
+                    <span class="current-price">$169.99</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(876)</span>
+                </div>
+                <button class="add-to-cart" data-id="5">Add to Cart</button>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200" alt="Product Image">
+                <h3>Sony WH-1000XM4 Headphones</h3>
+                <div class="price">
+                    <span class="current-price">$348.00</span>
+                    <span class="old-price">$399.99</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>(1543)</span>
+                </div>
+                <button class="add-to-cart" data-id="6">Add to Cart</button>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200" alt="Product Image">
+                <h3>Apple AirPods Max</h3>
+                <div class="price">
+                    <span class="current-price">$499.99</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(932)</span>
+                </div>
+                <button class="add-to-cart" data-id="7">Add to Cart</button>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/200" alt="Product Image">
+                <h3>Beats Fit Pro</h3>
+                <div class="price">
+                    <span class="current-price">$199.99</span>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(654)</span>
+                </div>
+                <button class="add-to-cart" data-id="8">Add to Cart</button>
+            </div>
+        
+          
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Corporate</a></li>
+                        <li><a href="#">Investors</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Grocery Delivery</a></li>
+                        <li><a href="#">Money Center</a></li>
+                        <li><a href="#">Photo Center</a></li>
+                        <li><a href="#">Auto Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect With Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Walmart Clone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"> </script>
+</body>
+</html>

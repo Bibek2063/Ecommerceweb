@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Walmart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Walmart Color Scheme */
+        :root {
+            --walmart-blue: #0071dc;
+            --walmart-yellow: #ffc220;
+            --walmart-dark-blue: #004f9a;
+            --light-gray: #f7f7f7;
+            --medium-gray: #e6e6e6;
+            --dark-gray: #333;
+            --success-green: #007f5f;
+            --error-red: #d62b1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        .checkout-header {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .checkout-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .logo a {
+            color: var(--walmart-blue);
+            text-decoration: none;
+        }
+
+        /* Confirmation Main Content */
+        .confirmation-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .confirmation-icon {
+            font-size: 60px;
+            color: var(--success-green);
+            margin-bottom: 20px;
+        }
+
+        .confirmation-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--success-green);
+        }
+
+        .confirmation-subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .order-number {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: var(--walmart-blue);
+        }
+
+        .confirmation-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .detail-section {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .detail-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--walmart-blue);
+        }
+
+        .detail-content {
+            font-size: 15px;
+        }
+
+        .detail-row {
+            margin-bottom: 10px;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .order-items {
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .order-item-image {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+        }
+
+        .order-item-image img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .order-item-details {
+            flex-grow: 1;
+        }
+
+        .order-item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .order-item-price {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .order-item-qty {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .order-summary {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .order-summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .order-summary-total {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--walmart-blue);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--walmart-dark-blue);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--walmart-blue);
+            border: 1px solid var(--walmart-blue);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--light-gray);
+        }
+
+        .track-order {
+            margin-top: 30px;
+            font-size: 15px;
+            color: #666;
+        }
+
+        .track-order a {
+            color: var(--walmart-blue);
+            text-decoration: none;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .confirmation-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Checkout Header -->
+    <header class="checkout-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Walmart</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Confirmation Main Content -->
+    <main class="container">
+        <div class="confirmation-container">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1 class="confirmation-title">Thank you for your order!</h1>
+            <p class="confirmation-subtitle">Your order has been placed successfully and is being processed.</p>
+            <div class="order-number">Order #WMT-20230712-45678</div>
+            
+            <div class="confirmation-details">
+                <div class="detail-section">
+                    <h3 class="detail-title">Shipping Information</h3>
+                    <div class="detail-content">
+                        <div class="detail-row">
+                            <span class="detail-label">Name:</span> John Doe
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Address:</span> 123 Main St, Apt 4B
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">City:</span> New York
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">State:</span> NY
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">ZIP:</span> 10001
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Phone:</span> (555) 123-4567
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3 class="detail-title">Payment Information</h3>
+                    <div class="detail-content">
+                        <div class="detail-row">
+                            <span class="detail-label">Method:</span> Credit Card
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Card:</span> Visa ending in 4242
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Billing Address:</span> Same as shipping
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Total Paid:</span> $748.98
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-items">
+                <h3 class="detail-title">Order Items</h3>
+                <div class="order-item">
+                    <div class="order-item-image">
+                        <img src="https://imgs.search.brave.com/4UkzQ2Gm9zhfj7tDWGrzS1ZhUmSxREAwCAAB0Nhymd4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbGx1c3RyYXRp/b24tYWlycG9kcy1w/cm8tMmctd2l0aG91/dC1iYWNrZ3JvdW5k/LWdlbmVyYXRpdmUt/YWlfNzU2NDA1LTcw/MTc5LmpwZz9zZW10/PWFpc19pdGVtc19i/b29zdGVkJnc9NzQw" alt="Apple AirPods Pro">
+                    </div>
+                    <div class="order-item-details">
+                        <div class="order-item-name">Apple AirPods Pro (2nd Generation)</div>
+                        <div class="order-item-price">$199.99</div>
+                        <div class="order-item-qty">Qty: 1</div>
+                    </div>
+                </div>
+                <div class="order-item">
+                    <div class="order-item-image">
+                        <img src="https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn" alt="Samsung 55" 4K Smart TV">
+                    </div>
+                    <div class="order-item-details">
+                        <div class="order-item-name">Samsung 55" 4K Smart TV</div>
+                        <div class="order-item-price">$499.99</div>
+                        <div class="order-item-qty">Qty: 1</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-summary">
+                <div class="order-summary-row">
+                    <span>Subtotal (2 items)</span>
+                    <span>$699.98</span>
+                </div>
+                <div class="order-summary-row">
+                    <span>Shipping</span>
+                    <span>FREE</span>
+                </div>
+                <div class="order-summary-row">
+                    <span>Tax</span>
+                    <span>$49.00</span>
+                </div>
+                <div class="order-summary-row order-summary-total">
+                    <span>Total Paid</span>
+                    <span>$748.98</span>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="index.html" class="btn btn-primary">Continue Shopping</a>
+                <a href="order-history.html" class="btn btn-secondary">View Order Details</a>
+            </div>
+            
+            <div class="track-order">
+                <p>You can track your order in <a href="account.html">your account</a> or we'll send you email updates.</p>
+                <p>Estimated delivery: <strong>Thu, Oct 26</strong></p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

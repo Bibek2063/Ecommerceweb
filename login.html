@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Walmart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Walmart Color Scheme */
+        :root {
+            --walmart-blue: #0071dc;
+            --walmart-yellow: #ffc220;
+            --walmart-dark-blue: #004f9a;
+            --light-gray: #f7f7f7;
+            --medium-gray: #e6e6e6;
+            --dark-gray: #333;
+            --success-green: #007f5f;
+            --error-red: #d62b1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        .login-header {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .login-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .logo a {
+            color: var(--walmart-blue);
+            text-decoration: none;
+        }
+
+        .help-link {
+            color: var(--walmart-blue);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        /* Main Content */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 70px);
+            padding: 40px 0;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin: 0 auto;
+        }
+
+        .login-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--walmart-blue);
+            box-shadow: 0 0 0 2px rgba(0, 113, 220, 0.2);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark-gray);
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--walmart-blue);
+            text-decoration: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--walmart-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: var(--walmart-dark-blue);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .divider::before {
+            margin-right: 15px;
+        }
+
+        .divider::after {
+            margin-left: 15px;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            background-color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .social-btn:hover {
+            background-color: var(--light-gray);
+        }
+
+        .social-btn.google {
+            color: #4285F4;
+        }
+
+        .social-btn.facebook {
+            color: #1877F2;
+        }
+
+        .social-btn.apple {
+            color: var(--dark-gray);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: var(--walmart-blue);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: var(--error-red);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 20px;
+                box-shadow: none;
+                border: 1px solid var(--medium-gray);
+            }
+            
+            .login-container {
+                padding: 20px 0;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-header .container {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Header -->
+    <header class="login-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Walmart</a>
+            </div>
+            <a href="#" class="help-link">
+                <i class="fas fa-question-circle"></i> Help
+            </a>
+        </div>
+    </header>
+
+    <!-- Login Main Content -->
+    <main class="login-container">
+        <div class="login-card">
+            <h1 class="login-title">Sign in to your account</h1>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" required>
+                        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                    </div>
+                    <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    Sign in
+                    <span class="spinner" id="loginSpinner" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div class="divider">or</div>
+            
+            <div class="social-login">
+                <button type="button" class="social-btn google">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" width="20">
+                    Continue with Google
+                </button>
+                <button type="button" class="social-btn facebook">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Facebook" width="20">
+                    Continue with Facebook
+                </button>
+                <button type="button" class="social-btn apple">
+                    <i class="fab fa-apple"></i>
+                    Continue with Apple
+                </button>
+            </div>
+            
+            <div class="signup-link">
+                Don't have an account? <a href="signup.html">Sign up</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle password visibility
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+            });
+
+            // Form validation
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginSpinner = document.getElementById('loginSpinner');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset error messages
+                emailError.style.display = 'none';
+                passwordError.style.display = 'none';
+                emailInput.style.borderColor = '';
+                passwordInput.style.borderColor = '';
+                
+                // Validate email
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                let isValid = true;
+                
+                if (!emailRegex.test(email)) {
+                    emailError.style.display = 'block';
+                    emailInput.style.borderColor = 'var(--error-red)';
+                    isValid = false;
+                }
+                
+                // Validate password
+                const password = passwordInput.value.trim();
+                if (password.length < 6) {
+                    passwordError.style.display = 'block';
+                    passwordInput.style.borderColor = 'var(--error-red)';
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Show loading spinner
+                    loginBtn.disabled = true;
+                    loginSpinner.style.display = 'inline-block';
+                    loginBtn.innerHTML = 'Signing in <span class="spinner" id="loginSpinner"></span>';
+                    
+                    // Simulate API call
+                    setTimeout(function() {
+                        // In a real app, this would submit to your authentication service
+                        console.log('Login submitted:', { email, password });
+                        
+                        // For demo purposes, we'll simulate a successful login
+                        // In a real app, you would handle success/error responses
+                        alert('Login successful! Redirecting...');
+                        
+                        // Store user session (in a real app, you'd use proper session management)
+                        localStorage.setItem('currentUser', JSON.stringify({
+                            email: email,
+                            name: email.split('@')[0]
+                        }));
+                        
+                        // Redirect to home page or previous page
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const redirect = urlParams.get('redirect') || 'index.html';
+                        window.location.href = redirect;
+                    }, 1500);
+                }
+            });
+
+            // Social login buttons
+            document.querySelector('.social-btn.google').addEventListener('click', function() {
+                alert('Redirecting to Google login...');
+                // In a real app, this would initiate Google OAuth flow
+            });
+            
+            document.querySelector('.social-btn.facebook').addEventListener('click', function() {
+                alert('Redirecting to Facebook login...');
+                // In a real app, this would initiate Facebook OAuth flow
+            });
+            
+            document.querySelector('.social-btn.apple').addEventListener('click', function() {
+                alert('Redirecting to Apple login...');
+                // In a real app, this would initiate Apple OAuth flow
+            });
+
+            // Forgot password link
+            document.querySelector('.forgot-password').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Password reset functionality would be implemented here');
+                // In a real app, this would open a password reset modal or page
+            });
+        });
+    </script>
+</body>
+</html>
