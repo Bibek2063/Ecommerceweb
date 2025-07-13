@@ -173,83 +173,69 @@
     </section>
 
     <!-- Recently Viewed -->
-    <section class="recently-viewed container">
-        <h2 class="section-title">Recently Viewed</h2>
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img src="https://imgs.search.brave.com/a6N8m4En84Th-PBUiLiIRBctVYZ7rjHeSmm8be7eCfE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nYW1lc3RvcC5j/b20vaS9nYW1lc3Rv/cC8xMTA5NTgxOV9B/TFQwMS9OaW50ZW5k/by1Td2l0Y2gtQ29u/c29sZT8kcGRwJA" alt="Product Image">
-                <h3>Nintendo Switch - Neon</h3>
-                <div class="price">
-                    <span class="current-price">$299.99</span>
-                </div>
-                <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                    <span>(1876)</span>
-                </div>
-                <button class="add-to-cart" data-id="4">Add to Cart</button>
+ <!-- Cart Section -->
+<section class="cart-section container">
+    <div class="cart-header">
+        <h1>Your Cart (<span class="cart-item-count">0</span> items)</h1>
+        <a href="index.html" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+    </div>
+    
+    <div class="cart-content">
+        <div class="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
+        
+        <div class="saved-for-later">
+            <!-- Saved items will be dynamically inserted here -->
+        </div>
+    </div>
+    
+    <div class="cart-summary">
+        <div class="summary-card">
+            <h3>Order Summary</h3>
+            <div class="summary-row">
+                <span>Subtotal (<span class="item-count">0</span> items)</span>
+                <span class="subtotal">$0.00</span>
             </div>
-            
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img src="https://imgs.search.brave.com/zZCcrNRxfbMmhNKuid7m9kczmjzDAmQHzd3E-5cmHvg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/Y2l0eXBuZy5jb20v/cHVibGljL3VwbG9h/ZHMvcHJldmlldy9o/ZC1ibHVlLWFwcGxl/LXNtYXJ0LXdhdGNo/LXNlcmllcy02LXBu/Zy03MDQwODE2OTQ2/MjIxNzBvZ2Z1bHVj/eHc1LnBuZz92PTIw/MjUwMjEwMDQ" alt="Product Image">
-                <h3>Apple Watch Series 8</h3>
-                <div class="price">
-                    <span class="current-price">$399.00</span>
-                    <span class="old-price">$429.00</span>
-                </div>
-                <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <span>(932)</span>
-                </div>
-                <button class="add-to-cart" data-id="9">Add to Cart</button>
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span>FREE</span>
             </div>
-            
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img src="https://m.media-amazon.com/images/I/710exCeNPJL._AC_SY450_.jpg" alt="Product Image">
-                <h3>Echo Dot (5th Gen)</h3>
-                <div class="price">
-                    <span class="current-price">$49.99</span>
-                </div>
-                <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                    <span>(2453)</span>
-                </div>
-                <button class="add-to-cart" data-id="10">Add to Cart</button>
+            <div class="summary-row">
+                <span>Tax</span>
+                <span class="tax">$0.00</span>
             </div>
+            <div class="summary-row total">
+                <span>Estimated Total</span>
+                <span class="total-price">$0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Continue to Checkout</button>
             
-            <!-- Product 4 -->
-            <div class="product-card">
-                <img src="https://m.media-amazon.com/images/I/31kTNmpm6vL._SX300_SY300_QL70_FMwebp_.jpg" alt="Product Image">
-                <h3>PlayStation 5 Console</h3>
-                <div class="price">
-                    <span class="current-price">$499.99</span>
-                </div>
-                <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <span>(3210)</span>
-                </div>
-                <button class="add-to-cart" data-id="11">Add to Cart</button>
+            <div class="payment-methods">
+                <img src="assets/visa.png" alt="Visa" onerror="this.src='https://via.placeholder.com/50'">
+                <img src="assets/mt_images-article_mastercardblack_body_1540x1032.webp" alt="Mastercard" onerror="this.src='https://via.placeholder.com/50'">
+                <img src="https://www.americanexpress.com/content/dam/amex/us/merchant/supplies-uplift/product/images/img-WEBLOGO1-01.jpg" alt="Amex" onerror="this.src='https://via.placeholder.com/50'">
+                <img src="assets/discover.png" alt="Discover" onerror="this.src='https://via.placeholder.com/50'">
+                <img src="assets/paypal-icon.webp" alt="PayPal" onerror="this.src='https://via.placeholder.com/50'">
+            </div>
+            <div class="secure-checkout">
+                <i class="fas fa-lock"></i> Secure checkout
             </div>
         </div>
-    </section>
+        
+        <div class="promo-code">
+            <h3>Promo Code</h3>
+            <input type="text" placeholder="Enter promo code">
+            <button class="apply-btn">Apply</button>
+        </div>
+        
+        <div class="pickup-savings">
+            <h3><i class="fas fa-store"></i> Pickup Savings</h3>
+            <p>Choose free pickup at your nearest store and save on delivery fees.</p>
+            <button class="find-store-btn">Find a store</button>
+        </div>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer>
