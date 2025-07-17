@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Top Navigation Bar -->
     <nav class="top-nav">
@@ -48,9 +50,9 @@
 
     <!-- Breadcrumb -->
     <div class="breadcrumb container">
-        <a href="index.html">Home</a> > 
-        <a href="#">Electronics</a> > 
-        <a href="#">Headphones</a> > 
+        <a href="index.html">Home</a> >
+        <a href="#">Electronics</a> >
+        <a href="#">Headphones</a> >
         <span>Apple AirPods Pro</span>
     </div>
 
@@ -58,13 +60,14 @@
     <section class="product-detail container">
         <div class="product-gallery">
             <div class="main-image">
-                <img src="https://via.placeholder.com/500" alt="Apple AirPods Pro">
+                <img src="" alt="" id="main-product-image">
+                <video id="product-video" controls style="display: none;">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video> <!-- Empty src/alt -->
             </div>
             <div class="thumbnail-images">
-                <img src="https://via.placeholder.com/100" alt="Thumbnail 1">
-                <img src="https://via.placeholder.com/100" alt="Thumbnail 2">
-                <img src="https://via.placeholder.com/100" alt="Thumbnail 3">
-                <img src="https://via.placeholder.com/100" alt="Thumbnail 4">
+                <!-- Thumbnails will be inserted dynamically -->
             </div>
         </div>
         <div class="product-info">
@@ -137,8 +140,13 @@
         <div class="tabs-content">
             <div id="description" class="tab-panel active">
                 <h3>Product Description</h3>
-                <p>The Apple AirPods Pro (2nd generation) feature Active Noise Cancellation that reduces unwanted background noise, and Adaptive Transparency that lets outside sounds in while reducing loud environmental noise. Designed to create an optimized fit—and to stay comfortable—they come with four pairs of silicone tips (XS, S, M, L) to fit a wide range of ears.</p>
-                <p>The MagSafe Charging Case delivers more than 24 hours of battery life and includes a speaker for locating with Find My and a lanyard loop. And with one-touch setup, your AirPods Pro connect magically to your iPhone or Apple Watch.</p>
+                <p>The Apple AirPods Pro (2nd generation) feature Active Noise Cancellation that reduces unwanted
+                    background noise, and Adaptive Transparency that lets outside sounds in while reducing loud
+                    environmental noise. Designed to create an optimized fit—and to stay comfortable—they come with four
+                    pairs of silicone tips (XS, S, M, L) to fit a wide range of ears.</p>
+                <p>The MagSafe Charging Case delivers more than 24 hours of battery life and includes a speaker for
+                    locating with Find My and a lanyard loop. And with one-touch setup, your AirPods Pro connect
+                    magically to your iPhone or Apple Watch.</p>
             </div>
             <div id="specs" class="tab-panel">
                 <h3>Technical Specifications</h3>
@@ -186,27 +194,37 @@
                     <div class="rating-distribution">
                         <div class="rating-bar">
                             <span>5 star</span>
-                            <div class="bar"><div class="fill" style="width: 70%;"></div></div>
+                            <div class="bar">
+                                <div class="fill" style="width: 70%;"></div>
+                            </div>
                             <span>70%</span>
                         </div>
                         <div class="rating-bar">
                             <span>4 star</span>
-                            <div class="bar"><div class="fill" style="width: 20%;"></div></div>
+                            <div class="bar">
+                                <div class="fill" style="width: 20%;"></div>
+                            </div>
                             <span>20%</span>
                         </div>
                         <div class="rating-bar">
                             <span>3 star</span>
-                            <div class="bar"><div class="fill" style="width: 5%;"></div></div>
+                            <div class="bar">
+                                <div class="fill" style="width: 5%;"></div>
+                            </div>
                             <span>5%</span>
                         </div>
                         <div class="rating-bar">
                             <span>2 star</span>
-                            <div class="bar"><div class="fill" style="width: 3%;"></div></div>
+                            <div class="bar">
+                                <div class="fill" style="width: 3%;"></div>
+                            </div>
                             <span>3%</span>
                         </div>
                         <div class="rating-bar">
                             <span>1 star</span>
-                            <div class="bar"><div class="fill" style="width: 2%;"></div></div>
+                            <div class="bar">
+                                <div class="fill" style="width: 2%;"></div>
+                            </div>
                             <span>2%</span>
                         </div>
                     </div>
@@ -226,7 +244,9 @@
                         </div>
                         <div class="review-title">Best wireless earbuds I've owned</div>
                         <div class="review-content">
-                            <p>The noise cancellation is incredible. I can't hear anything when I have these in. The sound quality is excellent and they fit perfectly in my ears. Battery life is great too. Worth every penny!</p>
+                            <p>The noise cancellation is incredible. I can't hear anything when I have these in. The
+                                sound quality is excellent and they fit perfectly in my ears. Battery life is great too.
+                                Worth every penny!</p>
                         </div>
                     </div>
                     <div class="review">
@@ -243,7 +263,9 @@
                         </div>
                         <div class="review-title">Great but expensive</div>
                         <div class="review-content">
-                            <p>These are definitely high quality earbuds with great features. The only reason I didn't give 5 stars is because of the price. They're quite expensive compared to other options, but you do get what you pay for.</p>
+                            <p>These are definitely high quality earbuds with great features. The only reason I didn't
+                                give 5 stars is because of the price. They're quite expensive compared to other options,
+                                but you do get what you pay for.</p>
                         </div>
                     </div>
                 </div>
@@ -259,7 +281,9 @@
                 <div class="question">
                     <div class="question-text">Are these compatible with Android phones?</div>
                     <div class="answer">
-                        <p>Yes, while they're optimized for Apple devices, they will work with any Bluetooth-enabled device including Android phones. However, some features like Siri and automatic switching between devices may not be available.</p>
+                        <p>Yes, while they're optimized for Apple devices, they will work with any Bluetooth-enabled
+                            device including Android phones. However, some features like Siri and automatic switching
+                            between devices may not be available.</p>
                     </div>
                 </div>
                 <button class="ask-question-btn">Ask a Question</button>
@@ -273,7 +297,8 @@
         <div class="products-grid">
             <!-- Product 1 -->
             <div class="product-card">
-                <img src="https://via.placeholder.com/200" alt="Product Image">
+                <img src="https://imgs.search.brave.com/3C3I-XiSMu70BwIpDVG2lnwcDGrh0OY-iqCFMSZCLY8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pNS53/YWxtYXJ0aW1hZ2Vz/LmNvbS9zZW8vQXBw/bGUtQWlyUG9kcy0z/cmQtR2VuZXJhdGlv/bl82Nzc2YTQyMi0x/MWFmLTRkZmMtOGFl/Zi00MGMwYjRlYTcx/YWMuYzBjMmYzMmEx/ZWI2YzcyZWIyODU4/MjQzNjA2MWQ0ZTYu/anBlZz9vZG5IZWln/aHQ9NTczJm9kbldp/ZHRoPTU3MyZvZG5C/Zz1GRkZGRkY"
+                    alt="Product Image">
                 <h3>Apple AirPods (3rd Generation)</h3>
                 <div class="price">
                     <span class="current-price">$169.99</span>
@@ -288,11 +313,11 @@
                 </div>
                 <button class="add-to-cart" data-id="5">Add to Cart</button>
             </div>
-            
+
             <!-- Product 2 -->
             <div class="product-card">
-                <img src="https://via.placeholder.com/200" alt="Product Image">
-                <h3>Sony WH-1000XM4 Headphones</h3>
+                <img src="https://m.media-amazon.com/images/I/71H7RtDgncL._SX522_.jpg" alt="Product Image">
+                <h3>Boult Btv 5.4 Headphone</h3>
                 <div class="price">
                     <span class="current-price">$348.00</span>
                     <span class="old-price">$399.99</span>
@@ -307,10 +332,10 @@
                 </div>
                 <button class="add-to-cart" data-id="6">Add to Cart</button>
             </div>
-            
+
             <!-- Product 3 -->
             <div class="product-card">
-                <img src="https://via.placeholder.com/200" alt="Product Image">
+                <img src="https://m.media-amazon.com/images/I/71n0hFVzhjL._SX679_.jpg" alt="Product Image">
                 <h3>Apple AirPods Max</h3>
                 <div class="price">
                     <span class="current-price">$499.99</span>
@@ -325,10 +350,11 @@
                 </div>
                 <button class="add-to-cart" data-id="7">Add to Cart</button>
             </div>
-            
+
             <!-- Product 4 -->
             <div class="product-card">
-                <img src="https://via.placeholder.com/200" alt="Product Image">
+                <img src="https://imgs.search.brave.com/aau2IRkgJ0IGu-V5l5jPlp0pazE0rSGvr0L-VgTMFmI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YmVhdHNieWRyZS5j/b20vY29udGVudC9k/YW0vYmVhdHMvd2Vi/L3Byb2R1Y3QvZWFy/YnVkcy9iZWF0cy1m/aXQtcHJvL3BkcC9m/aXRwcm8tcGRwLXAw/Mi5wbmcubGFyZ2Uu/MngucG5n"
+                    alt="Product Image">
                 <h3>Beats Fit Pro</h3>
                 <div class="price">
                     <span class="current-price">$199.99</span>
@@ -343,8 +369,8 @@
                 </div>
                 <button class="add-to-cart" data-id="8">Add to Cart</button>
             </div>
-        
-          
+
+
         </div>
     </section>
 
@@ -397,4 +423,5 @@
 
     <script src="script.js"> </script>
 </body>
+
 </html>

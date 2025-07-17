@@ -170,9 +170,9 @@ a:hover {
 .hero {
     background-color: var(--primary-blue);
     color: white;
-    padding: 60px 0;
-    background-image: url('https://via.placeholder.com/1200x400');
-    background-size: cover;
+    padding: 0px 0;
+    /* background-image: url('https://via.placeholder.com/1200x400'); */
+    /* background-size: cover; */
     background-position: center;
     margin-bottom: 30px;
 }

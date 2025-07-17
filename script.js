@@ -39,84 +39,55 @@ function initApp() {
     updateUI();
 }
 
-// Page-Specific Setup
-// In your setupPage() function's switch statement
-case 'product.html':  // This should be for product.html, not index.html
-  (function() {
-    let currentProductId = null;
-
-    function checkAndLoadProduct() {
-      const productId = getProductIdFromUrl();
+function setupPage() {
+  const path = window.location.pathname.split('/').pop();
+  
+  switch(path) {
+    case 'index.html':
+    case '':
+      setupHomePage();
+      break;
       
-      if (!productId) {
-        window.location.href = 'index.html';
-        return;
-      }
+    case 'product.html':
+      // Immediately-invoked function expression
+      (function setupProductPage() {
+        let currentProductId = null;
+
+        function checkAndLoadProduct() {
+          const productId = getProductIdFromUrl();
+          
+          if (!productId) {
+            window.location.href = 'index.html';
+            return;
+          }
+          
+          if (productId !== currentProductId) {
+            currentProductId = productId;
+            loadProductDetails(productId);
+            setupProductGallery();
+            setupProductTabs();
+            setupAddToCart();
+          }
+        }
+
+        // Initial load
+        checkAndLoadProduct();
+        
+        // Handle back/forward navigation
+        window.addEventListener('popstate', checkAndLoadProduct);
+        
+        // Check navigation type
+        const navEntries = performance.getEntriesByType("navigation");
+        if (navEntries.length > 0 && navEntries[0].type === "navigate") {
+          window.location.reload();
+        }
+      })();
+      break;
       
-      if (productId !== currentProductId) {
-        currentProductId = productId;
-        loadProductDetails(productId);
-        setupProductGallery();
-        setupProductTabs();
-        setupAddToCart();
-      }
-    }
-
-    // Initial load
-    checkAndLoadProduct();
-    
-    // Handle back/forward navigation
-    window.addEventListener('popstate', checkAndLoadProduct);
-    
-    // Check navigation type
-    if (performance.getEntriesByType("navigation").length > 0 && 
-        performance.getEntriesByType("navigation")[0].type === "navigate") {
-      window.location.reload();
-    }
-  })();
-  break;
-
-// Setup Home Page
-function setupHomePage() {
-    // Display featured products
-    displayFeaturedProducts();
-    
-    // Display deals of the day
-    displayDealsOfTheDay();
-    
-    // Display recommended products
-    displayRecommendedProducts();
-    
-    // Set up category navigation
-    setupCategoryNavigation();
-    
-    // Set up quick view modal
-    setupQuickView();
-}
-
-// Setup Product Page
-case 'product.html':
-  // Remove any existing setupProductPage() call and replace with:
-  let currentProductId = null;
-
-  function setupProductPage() {
-    const productId = getProductIdFromUrl();
-    
-    if (!productId) {
-      window.location.href = 'index.html';
-      return;
-    }
-    
-    if (productId !== currentProductId) {
-      currentProductId = productId;
-      loadProductDetails(productId);
-    }
+    default:
+      console.log('Unknown page:', path);
   }
-
-  // Run on initial load and when URL changes
-  window.addEventListener('load', setupProductPage);
-  window.addEventListener('popstate', setupProductPage);
-  break;
+}
 
 // Setup Cart Page
 function setupCartPage() {
@@ -276,26 +247,188 @@ function loadProducts() {
     // In a real app, this would be an API call
     // Mock product data
     products = [
-        { id: 1, name: 'Apple AirPods Pro (2nd Generation)', price: 199.99, oldPrice: 249.99, category: 'electronics', rating: 4.5, reviews: 1245, image: 'https://imgs.search.brave.com/4UkzQ2Gm9zhfj7tDWGrzS1ZhUmSxREAwCAAB0Nhymd4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbGx1c3RyYXRp/b24tYWlycG9kcy1w/cm8tMmctd2l0aG91/dC1iYWNrZ3JvdW5k/LWdlbmVyYXRpdmUt/YWlfNzU2NDA1LTcw/MTc5LmpwZz9zZW10/PWFpc19pdGVtc19i/b29zdGVkJnc9NzQw', description: 'Active Noise Cancellation blocks outside noise...', features: ['Active Noise Cancellation', 'Transparency mode', 'Spatial audio'] },
-        { id: 2, name: 'Samsung 55" 4K Smart TV', price: 499.99, oldPrice: 599.99, category: 'electronics', rating: 4.0, reviews: 892, image: 'https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn', description: 'Crystal clear 4K resolution...', features: ['4K UHD resolution', 'Smart TV capabilities', 'HDR'] },
-        { id: 3, name: 'Instant Pot Duo 7-in-1', price: 79.99, oldPrice: 99.99, category: 'home', rating: 4.8, reviews: 2453, image: 'https://imgs.search.brave.com/id7G0a7b50yWnkgjQtZghfB7aRHyB9mSfee4sCxHSJM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/MzFrSS1IOVZoMEwu/anBn', description: '7-in-1 functionality...', features: ['Pressure cooker', 'Slow cooker', 'Rice cooker'] },
-        { id: 4, name: 'Nintendo Switch - Neon', price: 299.99, category: 'electronics', rating: 4.7, reviews: 1876, image: 'https://via.placeholder.com/200', description: 'Hybrid gaming console...', features: ['Portable and docked play', 'Joy-Con controllers', 'Multiplayer'] },
-        { id: 5, name: 'Apple AirPods (3rd Generation)', price: 169.99, category: 'electronics', rating: 4.3, reviews: 876, image: 'https://imgs.search.brave.com/3C3I-XiSMu70BwIpDVG2lnwcDGrh0OY-iqCFMSZCLY8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pNS53/YWxtYXJ0aW1hZ2Vz/LmNvbS9zZW8vQXBw/bGUtQWlyUG9kcy0z/cmQtR2VuZXJhdGlv/bl82Nzc2YTQyMi0x/MWFmLTRkZmMtOGFl/Zi00MGMwYjRlYTcx/YWMuYzBjMmYzMmEx/ZWI2YzcyZWIyODU4/MjQzNjA2MWQ0ZTYu/anBlZz9vZG5IZWln/aHQ9NTczJm9kbldp/ZHRoPTU3MyZvZG5C/Zz1GRkZGRkY', description: 'Spatial audio with dynamic head tracking...', features: ['Spatial audio', 'Sweat and water resistant', 'Long battery life'] },
-        { id: 6, name: 'Sony WH-1000XM4 Headphones', price: 348.00, oldPrice: 399.99, category: 'electronics', rating: 4.9, reviews: 1543, image: 'https://m.media-amazon.com/images/I/51JNqP2C4rL.__AC_SY445_SX342_QL70_FMwebp_.jpg', description: 'Industry-leading noise cancellation...', features: ['Noise cancellation', '30-hour battery', 'Touch controls'] },
-        { id: 7, name: 'Apple AirPods Max', price: 499.99, category: 'electronics', rating: 4.6, reviews: 932, image: 'https://ideogram.ai/assets/progressive-image/fast/response/5f9p4SFmSq6s_ssLTkwDWQ', description: 'High-fidelity audio...', features: ['Active Noise Cancellation', 'Transparency mode', 'Spatial audio'] },
-        { id: 8, name: 'Beats Fit Pro', price: 199.99, category: 'electronics', rating: 4.2, reviews: 654, image: 'https://imgs.search.brave.com/aau2IRkgJ0IGu-V5l5jPlp0pazE0rSGvr0L-VgTMFmI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YmVhdHNieWRyZS5j/b20vY29udGVudC9k/YW0vYmVhdHMvd2Vi/L3Byb2R1Y3QvZWFy/YnVkcy9iZWF0cy1m/aXQtcHJvL3BkcC9m/aXRwcm8tcGRwLXAw/Mi5wbmcubGFyZ2Uu/MngucG5n', description: 'Secure-fit wingtips...', features: ['Active Noise Cancellation', 'Sweat and water resistant', 'Long battery life'] },
+        { id: 1, name: 'Apple AirPods Pro (2nd Generation)', price: 199.99, oldPrice: 249.99, category: 'electronics', rating: 4.5, reviews: 1245, image: 'https://imgs.search.brave.com/4UkzQ2Gm9zhfj7tDWGrzS1ZhUmSxREAwCAAB0Nhymd4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9pbGx1c3RyYXRp/b24tYWlycG9kcy1w/cm8tMmctd2l0aG91/dC1iYWNrZ3JvdW5k/LWdlbmVyYXRpdmUt/YWlfNzU2NDA1LTcw/MTc5LmpwZz9zZW10/PWFpc19pdGVtc19i/b29zdGVkJnc9NzQw',
+            images: [
+      "assets/airpodsimages/airpods1.png",  // Main image (index 0)
+      "assets/airpodsimages/airpod4.webp",      // Thumbnail 1 (index 1)
+      "assets/airpodsimages/airpods2.png",      // Thumbnail 2 (index 2)
+      "assets/airpodsimages/airpods3.png"       // Thumbnail 3 (index 3)
+    ],
+            description: 'Active Noise Cancellation blocks outside noise...', features: ['Active Noise Cancellation', 'Transparency mode', 'Spatial audio'] },
+        { id: 2, name: 'Samsung 55" 4K Smart TV', price: 499.99, oldPrice: 599.99, category: 'electronics', rating: 4.0, reviews: 892, image: 'https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn', 
+            images: [
+      "https://imgs.search.brave.com/jJ3FtIEDfioe0Qx2YFJLbqkKmZJ_xxLZQjm6zW1P3b0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFibFNpckVqT0wu/anBn",  // Main image (index 0)
+      "assets/samsungtvimages/samsungtv2.webp",      // Thumbnail 1 (index 1)
+      "assets/samsungtvimages/samsung1.webp",      // Thumbnail 2 (index 2)
+      "assets/samsungtvimages/samsungtv3webp.webp"       // Thumbnail 3 (index 3)
+    ],
+            description: 'Crystal clear 4K resolution...', features: ['4K UHD resolution', 'Smart TV capabilities', 'HDR'] },
+        { id: 3, name: 'Instant Pot Duo 7-in-1', price: 79.99, oldPrice: 99.99, category: 'home', rating: 4.8, reviews: 2453, image: 'https://imgs.search.brave.com/id7G0a7b50yWnkgjQtZghfB7aRHyB9mSfee4sCxHSJM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/MzFrSS1IOVZoMEwu/anBn',
+            images: [
+      "https://imgs.search.brave.com/id7G0a7b50yWnkgjQtZghfB7aRHyB9mSfee4sCxHSJM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/MzFrSS1IOVZoMEwu/anBn",  // Main image (index 0)
+      "assets/instantpot/instantpot1.webp",      // Thumbnail 1 (index 1)
+      "assets/instantpot/instantpot2.webp",      // Thumbnail 2 (index 2)
+      "assets/instantpot/instantpot3.webp"       // Thumbnail 3 (index 3)
+    ],
+            description: '7-in-1 functionality...', features: ['Pressure cooker', 'Slow cooker', 'Rice cooker'] },
+        { id: 4, name: 'Nintendo Switch - Neon', price: 299.99, category: 'electronics', rating: 4.7, reviews: 1876, image: 'https://imgs.search.brave.com/a6N8m4En84Th-PBUiLiIRBctVYZ7rjHeSmm8be7eCfE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nYW1lc3RvcC5j/b20vaS9nYW1lc3Rv/cC8xMTA5NTgxOV9B/TFQwMS9OaW50ZW5k/by1Td2l0Y2gtQ29u/c29sZT8kcGRwJA',
+             images: [
+      "https://imgs.search.brave.com/a6N8m4En84Th-PBUiLiIRBctVYZ7rjHeSmm8be7eCfE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nYW1lc3RvcC5j/b20vaS9nYW1lc3Rv/cC8xMTA5NTgxOV9B/TFQwMS9OaW50ZW5k/by1Td2l0Y2gtQ29u/c29sZT8kcGRwJA",  // Main image (index 0)
+      "assets/neo/neo1.webp",      // Thumbnail 1 (index 1)
+      "assets/neo/neo2.webp",      // Thumbnail 2 (index 2)
+      "assets/neo/neo3.webp"       // Thumbnail 3 (index 3)
+    ],
+            description: 'Hybrid gaming console...', features: ['Portable and docked play', 'Joy-Con controllers', 'Multiplayer'] },
+        { id: 5, name: 'Apple AirPods (3rd Generation)', price: 169.99, category: 'electronics', rating: 4.3, reviews: 876, image: 'https://imgs.search.brave.com/3C3I-XiSMu70BwIpDVG2lnwcDGrh0OY-iqCFMSZCLY8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pNS53/YWxtYXJ0aW1hZ2Vz/LmNvbS9zZW8vQXBw/bGUtQWlyUG9kcy0z/cmQtR2VuZXJhdGlv/bl82Nzc2YTQyMi0x/MWFmLTRkZmMtOGFl/Zi00MGMwYjRlYTcx/YWMuYzBjMmYzMmEx/ZWI2YzcyZWIyODU4/MjQzNjA2MWQ0ZTYu/anBlZz9vZG5IZWln/aHQ9NTczJm9kbldp/ZHRoPTU3MyZvZG5C/Zz1GRkZGRkY',
+            images: [
+      "https://imgs.search.brave.com/3C3I-XiSMu70BwIpDVG2lnwcDGrh0OY-iqCFMSZCLY8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pNS53/YWxtYXJ0aW1hZ2Vz/LmNvbS9zZW8vQXBw/bGUtQWlyUG9kcy0z/cmQtR2VuZXJhdGlv/bl82Nzc2YTQyMi0x/MWFmLTRkZmMtOGFl/Zi00MGMwYjRlYTcx/YWMuYzBjMmYzMmEx/ZWI2YzcyZWIyODU4/MjQzNjA2MWQ0ZTYu/anBlZz9vZG5IZWln/aHQ9NTczJm9kbldp/ZHRoPTU3MyZvZG5C/Zz1GRkZGRkY",  // Main image (index 0)
+      "assets/Apple airpods(3rd gen)/airpod1.webp",      // Thumbnail 1 (index 1)
+      "assets/Apple airpods(3rd gen)/airpods2.webp",      // Thumbnail 2 (index 2)
+      "assets/Apple airpods(3rd gen)/airpods3.webp"       // Thumbnail 3 (index 3)
+    ],
+            description: 'Spatial audio with dynamic head tracking...', features: ['Spatial audio', 'Sweat and water resistant', 'Long battery life'] },
+        { id: 6, name: 'Sony WH-1000XM4 Headphones', price: 348.00, oldPrice: 399.99, category: 'electronics', rating: 4.9, reviews: 1543, image: 'https://m.media-amazon.com/images/I/51JNqP2C4rL.__AC_SY445_SX342_QL70_FMwebp_.jpg', 
+             images: [
+      "https://m.media-amazon.com/images/I/51JNqP2C4rL.__AC_SY445_SX342_QL70_FMwebp_.jpg",  // Main image (index 0)
+      "assets/sonyheadphones/sony4.jpg",      // Thumbnail 1 (index 1)
+      "assets/sonyheadphones/sony5.jpg",      // Thumbnail 2 (index 2)
+      "assets/sonyheadphones/sony6.jpg"       // Thumbnail 3 (index 3)
+    ],
+            description: 'Industry-leading noise cancellation...', features: ['Noise cancellation', '30-hour battery', 'Touch controls'] },
+        { id: 7, name: 'Apple AirPods Max', price: 499.99, category: 'electronics', rating: 4.6, reviews: 932, image: 'https://ideogram.ai/assets/progressive-image/fast/response/5f9p4SFmSq6s_ssLTkwDWQ', 
+             images: [
+      "assets/Apple AirPods Max/applehead1.jpg",  // Main image (index 0)
+      "assets/Apple AirPods Max/applehead2.jpg",      // Thumbnail 1 (index 1)
+      "assets/Apple AirPods Max/applehead3.jpg",      // Thumbnail 2 (index 2)
+      "assets/Apple AirPods Max/applehead4.jpg"       // Thumbnail 3 (index 3)
+    ],
+            description: 'High-fidelity audio...', features: ['Active Noise Cancellation', 'Transparency mode', 'Spatial audio'] },
+        { id: 8, name: 'Beats Fit Pro', price: 199.99, category: 'electronics', rating: 4.2, reviews: 654, image: 'https://imgs.search.brave.com/aau2IRkgJ0IGu-V5l5jPlp0pazE0rSGvr0L-VgTMFmI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YmVhdHNieWRyZS5j/b20vY29udGVudC9k/YW0vYmVhdHMvd2Vi/L3Byb2R1Y3QvZWFy/YnVkcy9iZWF0cy1m/aXQtcHJvL3BkcC9m/aXRwcm8tcGRwLXAw/Mi5wbmcubGFyZ2Uu/MngucG5n', 
+             images: [
+      "https://imgs.search.brave.com/aau2IRkgJ0IGu-V5l5jPlp0pazE0rSGvr0L-VgTMFmI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YmVhdHNieWRyZS5j/b20vY29udGVudC9k/YW0vYmVhdHMvd2Vi/L3Byb2R1Y3QvZWFy/YnVkcy9iZWF0cy1m/aXQtcHJvL3BkcC9m/aXRwcm8tcGRwLXAw/Mi5wbmcubGFyZ2Uu/MngucG5n",  // Main image (index 0)
+      "assets/Beats Fit Pro/beatfitpro1.jpg",      // Thumbnail 1 (index 1)
+      "assets/Beats Fit Pro/beatfitpro2.jpg",      // Thumbnail 2 (index 2)
+      "assets/Beats Fit Pro/beatfitpro3.jpg"       // Thumbnail 3 (index 3)
+    ],
+            description: 'Secure-fit wingtips...', features: ['Active Noise Cancellation', 'Sweat and water resistant', 'Long battery life'] },
         { id: 9, name: 'Apple Watch Series 8', price: 399.00, oldPrice: 429.00, category: 'electronics', rating: 4.4, reviews: 932, image: 'https://imgs.search.brave.com/zZCcrNRxfbMmhNKuid7m9kczmjzDAmQHzd3E-5cmHvg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/Y2l0eXBuZy5jb20v/cHVibGljL3VwbG9h/ZHMvcHJldmlldy9o/ZC1ibHVlLWFwcGxl/LXNtYXJ0LXdhdGNo/LXNlcmllcy02LXBu/Zy03MDQwODE2OTQ2/MjIxNzBvZ2Z1bHVj/eHc1LnBuZz92PTIw/MjUwMjEwMDQ', description: 'Advanced health monitoring...', features: ['Heart rate monitoring', 'ECG', 'Sleep tracking'] },
         { id: 10, name: 'Echo Dot (5th Gen)', price: 49.99, category: 'electronics', rating: 4.5, reviews: 2453, image: 'https://m.media-amazon.com/images/I/710exCeNPJL._AC_SY450_.jpg', description: 'Smart speaker with Alexa...', features: ['Voice control', 'Smart home hub', 'Compact design'] },
         { id: 11, name: 'PlayStation 5 Console', price: 499.99, category: 'electronics', rating: 5.0, reviews: 3210, image: 'https://m.media-amazon.com/images/I/31kTNmpm6vL._SX300_SY300_QL70_FMwebp_.jpg', description: 'Next-gen gaming console...', features: ['4K gaming', 'Ultra-high speed SSD', 'Haptic feedback'] }
     ];
 }
+//initialize the gallary
+function initProductGallery() {
+  const productId = getProductIdFromUrl();
+  const product = products.find(p => p.id == productId);
+  
+  if (!product) {
+    window.location.href = 'index.html'; // Redirect if product not found
+    return;
+  }
+
+  loadProductImages(product);
+  setupThumbnailInteractions();
+  updateProductDetails(product);
+}
+
+// ======================
+// 2. Load Images
+// ======================
+function loadProductImages(product) {
+  const mainImg = document.querySelector('.main-image img');
+  const thumbnailContainer = document.querySelector('.thumbnail-images');
+  
+  // Set main image (first in array)
+  mainImg.src = product.images[0];
+  mainImg.alt = `${product.name} - Main View`;
+
+  // Clear existing thumbnails
+  thumbnailContainer.innerHTML = '';
+
+  // Generate thumbnails (skip index 0 = main image)
+  product.images.slice(1).forEach((imgPath, index) => {
+    const thumb = document.createElement('img');
+    thumb.src = imgPath;
+    thumb.alt = `${product.name} - View ${index + 1}`;
+    thumb.className = 'thumbnail';
+    thumb.dataset.fullImage = imgPath; // Store full image path
+    
+    // Highlight first thumbnail by default
+    if (index === 0) thumb.classList.add('active');
+    
+    thumbnailContainer.appendChild(thumb);
+  });
+
+  // Hide thumbnail container if no additional images
+  if (product.images.length <= 1) {
+    thumbnailContainer.style.display = 'none';
+  }
+}
+
+// ======================
+// 3. Thumbnail Click Handler
+// ======================
+function setupThumbnailInteractions() {
+  document.querySelectorAll('.thumbnail').forEach(thumb => {
+    thumb.addEventListener('click', function() {
+      // Update main image
+      document.querySelector('.main-image img').src = this.dataset.fullImage;
+      
+      // Update active thumbnail
+      document.querySelectorAll('.thumbnail').forEach(t => 
+        t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+}
+
+// ======================
+// 4. Update Product Details
+// ======================
+function updateProductDetails(product) {
+  document.querySelector('.product-info h1').textContent = product.name;
+  document.querySelector('.price .current-price').textContent = `$${product.price.toFixed(2)}`;
+  document.querySelector('.product-description').textContent = product.description;
+  // Update other details...
+}
+
+// ======================
+// 5. Get Product ID from URL
+// ======================
+function getProductIdFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id'));
+  return isNaN(id) ? null : id;
+}
+
+// ======================
+// 6. Error Handling for Broken Images
+// ======================
+function setupImageErrorHandling() {
+  document.querySelectorAll('img').forEach(img => {
+    img.onerror = function() {
+      this.src = 'assets/fallback-image.png'; // Fallback image
+      this.style.opacity = '0.7';
+    };
+  });
+}
+
+// ======================
+// Initialize on Page Load
+// ======================
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.pathname.includes('product.html')) {
+    initProductGallery();
+    setupImageErrorHandling();
+  }
+});
 
 function displayFeaturedProducts() {
     const featuredContainer = document.querySelector('.featured-products .products-grid');
     
     if (featuredContainer) {
         // Get featured products (first 4 for demo)
-        const featured = products.slice(0, 6);
+        const featured = products.slice(0, 8);
         
         featuredContainer.innerHTML = featured.map(product => `
             <div class="product-card">
@@ -329,7 +462,7 @@ function displayDealsOfTheDay() {
     
     if (dealsContainer) {
         // Get deals (products with oldPrice for demo)
-        const deals = products.filter(p => p.oldPrice).slice(0, 6);
+        const deals = products.filter(p => p.oldPrice).slice(0, 8);
         
         dealsContainer.innerHTML = deals.map(product => `
             <div class="product-card">
@@ -422,12 +555,12 @@ function loadProductDetails(productId) {
     if (product) {
         // Update product images
         document.querySelector('.main-image img').src = product.image;
-        document.querySelector('.thumbnail-images').innerHTML = `
-            <img src="${product.image}" alt="Thumbnail 1">
-            <img src="https://via.placeholder.com/100" alt="Thumbnail 2">
-            <img src="https://via.placeholder.com/100" alt="Thumbnail 3">
-            <img src="https://via.placeholder.com/100" alt="Thumbnail 4">
-        `;
+        // document.querySelector('.thumbnail-images').innerHTML = `
+        //     <img src="${product.image}" alt="Thumbnail 1">
+        //     <img src="https://via.placeholder.com/100" alt="Thumbnail 2">
+        //     <img src="https://via.placeholder.com/100" alt="Thumbnail 3">
+        //     <img src="https://via.placeholder.com/100" alt="Thumbnail 4">
+        // `;
         
         // Update product info
         document.querySelector('.product-info h1').textContent = product.name;
@@ -574,14 +707,22 @@ function displayRelatedProducts(productId) {
 }
 
 // Cart Functions
+// cart.js - Complete Cart Functionality
+
+// Wait for DOM and products to load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize cart
+    loadCart();
+    displayCartItems();
+    setupCartEventListeners();
+    updateCartCount();
+    updateCartSummary();
+});
+
+// Cart Data Functions
 function loadCart() {
     const cartData = localStorage.getItem('cart');
-    
-    if (cartData) {
-        cart = JSON.parse(cartData);
-    } else {
-        cart = [];
-    }
+    cart = cartData ? JSON.parse(cartData) : [];
 }
 
 function saveCart() {
@@ -590,224 +731,240 @@ function saveCart() {
 
 function addToCart(productId, quantity = 1) {
     const product = products.find(p => p.id == productId);
+    if (!product) return false;
+
+    const existingItem = cart.find(item => item.productId == productId && !item.savedForLater);
     
-    if (product) {
-        const existingItem = cart.find(item => item.id == productId);
-        
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            cart.push({
-                id: productId,
-                quantity: quantity,
-                price: product.price,
-                name: product.name,
-                image: product.image
-            });
-        }
-        
-        saveCart();
-        updateCartCount();
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({
+            productId: productId,
+            quantity: quantity,
+            savedForLater: false,
+            addedAt: new Date().getTime()
+        });
     }
+
+    saveCart();
+    updateCartCount();
+    return true;
 }
 
 function removeFromCart(productId) {
-    cart = cart.filter(item => item.id != productId);
+    cart = cart.filter(item => item.productId != productId);
     saveCart();
+    displayCartItems();
     updateCartCount();
 }
 
-function updateCartItemQuantity(productId, quantity) {
-    const item = cart.find(item => item.id == productId);
-    
-    if (item) {
-        if (quantity > 0) {
-            item.quantity = quantity;
-        } else {
-            removeFromCart(productId);
-        }
-        
-        saveCart();
+function updateQuantity(productId, newQuantity) {
+    const item = cart.find(item => item.productId == productId);
+    if (!item) return;
+
+    if (newQuantity < 1) {
+        removeFromCart(productId);
+    } else if (newQuantity > 10) {
+        item.quantity = 10;
+    } else {
+        item.quantity = newQuantity;
     }
+
+    saveCart();
+    updateCartSummary();
 }
 
-function getCartTotal() {
-    return cart.reduce((total, item) => {
-        const product = products.find(p => p.id == item.id);
-        return total + (product ? product.price * item.quantity : 0);
-    }, 0);
+function toggleSaveForLater(productId) {
+    const item = cart.find(item => item.productId == productId);
+    if (!item) return;
+
+    item.savedForLater = !item.savedForLater;
+    saveCart();
+    displayCartItems();
 }
 
-function updateCartCount() {
-    const count = cart.reduce((total, item) => total + item.quantity, 0);
-    
-    document.querySelectorAll('.cart-count').forEach(element => {
-        element.textContent = count;
-    });
-}
-
+// Display Functions
 function displayCartItems() {
     const cartItemsContainer = document.querySelector('.cart-items');
+    const savedItemsContainer = document.querySelector('.saved-for-later');
     
-    if (cartItemsContainer) {
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = `
-                <div class="empty-cart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h3>Your cart is empty</h3>
-                    <p>Start shopping to add items to your cart</p>
-                    <a href="index.html" class="btn">Continue Shopping</a>
-                </div>
-            `;
-        } else {
-            cartItemsContainer.innerHTML = cart.map(item => {
-                const product = products.find(p => p.id == item.id);
-                
-                if (product) {
-                    return `
-                        <div class="cart-item" data-id="${item.id}">
-                            <div class="item-image">
-                                <img src="${product.image}" alt="${product.name}">
-                            </div>
-                            <div class="item-details">
-                                <h3 class="item-title">${product.name}</h3>
-                                <div class="item-price">$${product.price.toFixed(2)}</div>
-                                <div class="item-availability"><i class="fas fa-check-circle"></i> In stock</div>
-                                <div class="item-delivery">Free delivery <strong>Tomorrow</strong></div>
-                                <div class="item-actions">
-                                    <div class="quantity-selector">
-                                        <button class="qty-minus">-</button>
-                                        <input type="number" value="${item.quantity}" min="1" max="10">
-                                        <button class="qty-plus">+</button>
-                                    </div>
-                                    <button class="save-for-later"><i class="far fa-bookmark"></i> Save for later</button>
-                                    <button class="remove-item"><i class="far fa-trash-alt"></i> Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-                return '';
-            }).join('');
-            
-            // Set up cart item controls
-            setupCartItemControls();
-            
-            // Update cart summary
-            updateCartSummary();
-        }
+    // Filter items
+    const inCart = cart.filter(item => !item.savedForLater);
+    const savedForLater = cart.filter(item => item.savedForLater);
+    
+    // Display cart items
+    if (inCart.length === 0) {
+        cartItemsContainer.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Start shopping to add items to your cart</p>
+                <a href="index.html" class="btn">Continue Shopping</a>
+            </div>
+        `;
+    } else {
+        cartItemsContainer.innerHTML = inCart.map(item => createCartItemElement(item)).join('');
     }
+    
+    // Display saved items
+    if (savedForLater.length === 0) {
+        savedItemsContainer.innerHTML = '';
+    } else {
+        savedItemsContainer.innerHTML = `
+            <h3>Saved for later (${savedForLater.length})</h3>
+            ${savedForLater.map(item => createSavedItemElement(item)).join('')}
+        `;
+    }
+    
+    // Update header
+    document.querySelector('.cart-header h1').textContent = `Your Cart (${inCart.length} items)`;
+    updateCartSummary();
 }
 
-function setupCartItemControls() {
-    // Quantity minus
-    document.querySelectorAll('.qty-minus').forEach(button => {
-        button.addEventListener('click', function() {
-            const input = this.nextElementSibling;
-            const newQty = parseInt(input.value) - 1;
-            
-            if (newQty >= 1) {
-                input.value = newQty;
-                const productId = this.closest('.cart-item').getAttribute('data-id');
-                updateCartItemQuantity(productId, newQty);
-                displayCartItems(); // Refresh display
-            }
-        });
-    });
+function createCartItemElement(item) {
+    const product = products.find(p => p.id == item.productId);
+    if (!product) return '';
     
-    // Quantity plus
-    document.querySelectorAll('.qty-plus').forEach(button => {
-        button.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            const newQty = parseInt(input.value) + 1;
-            
-            if (newQty <= 10) {
-                input.value = newQty;
-                const productId = this.closest('.cart-item').getAttribute('data-id');
-                updateCartItemQuantity(productId, newQty);
-                displayCartItems(); // Refresh display
-            }
-        });
-    });
+    return `
+        <div class="cart-item" data-id="${product.id}">
+            <div class="item-image">
+                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/100'">
+            </div>
+            <div class="item-details">
+                <h3 class="item-title">${product.name}</h3>
+                <div class="item-price">$${product.price.toFixed(2)}</div>
+                <div class="item-availability"><i class="fas fa-check-circle"></i> In stock</div>
+                <div class="item-delivery">Free delivery <strong>Tomorrow</strong></div>
+                <div class="item-actions">
+                    <div class="quantity-selector">
+                        <button class="qty-minus">-</button>
+                        <input type="number" value="${item.quantity}" min="1" max="10">
+                        <button class="qty-plus">+</button>
+                    </div>
+                    <button class="save-for-later"><i class="far fa-bookmark"></i> Save for later</button>
+                    <button class="remove-item"><i class="far fa-trash-alt"></i> Remove</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function createSavedItemElement(item) {
+    const product = products.find(p => p.id == item.productId);
+    if (!product) return '';
     
-    // Quantity input change
-    document.querySelectorAll('.quantity-selector input').forEach(input => {
-        input.addEventListener('change', function() {
-            const newQty = parseInt(this.value);
-            const productId = this.closest('.cart-item').getAttribute('data-id');
-            
-            if (newQty >= 1 && newQty <= 10) {
-                updateCartItemQuantity(productId, newQty);
-                displayCartItems(); // Refresh display
-            } else {
-                this.value = cart.find(item => item.id == productId).quantity;
-            }
-        });
-    });
+    return `
+        <div class="saved-item" data-id="${product.id}">
+            <div class="item-image">
+                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/100'">
+            </div>
+            <div class="item-details">
+                <h3 class="item-title">${product.name}</h3>
+                <div class="item-price">$${product.price.toFixed(2)}</div>
+                <div class="item-actions">
+                    <button class="move-to-cart">Move to cart</button>
+                    <button class="remove-item"><i class="far fa-trash-alt"></i> Remove</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Update Functions
+function updateCartCount() {
+    const count = cart.reduce((total, item) => {
+        return item.savedForLater ? total : total + item.quantity;
+    }, 0);
     
-    // Remove item
-    document.querySelectorAll('.remove-item').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.closest('.cart-item').getAttribute('data-id');
-            removeFromCart(productId);
-            displayCartItems(); // Refresh display
-        });
-    });
-    
-    // Save for later
-    document.querySelectorAll('.save-for-later').forEach(button => {
-        button.addEventListener('click', function() {
-            // In a real app, this would move to a "saved for later" list
-            showToast('Item saved for later');
-        });
-    });
+    document.querySelectorAll('.cart-count').forEach(el => el.textContent = count);
 }
 
 function updateCartSummary() {
-    const subtotal = getCartTotal();
-    const tax = subtotal * 0.07; // 7% tax for demo
+    const inCart = cart.filter(item => !item.savedForLater);
+    const subtotal = inCart.reduce((sum, item) => {
+        const product = products.find(p => p.id == item.productId);
+        return sum + (product ? product.price * item.quantity : 0);
+    }, 0);
+    
+    const tax = subtotal * 0.07; // Example 7% tax
     const total = subtotal + tax;
     
-    document.querySelector('.summary-row:nth-child(1) span:last-child').textContent = `$${subtotal.toFixed(2)}`;
-    document.querySelector('.summary-row:nth-child(3) span:last-child').textContent = `$${tax.toFixed(2)}`;
-    document.querySelector('.summary-row.total span:last-child').textContent = `$${total.toFixed(2)}`;
-}
-
-function setupPromoCode() {
-    const applyBtn = document.querySelector('.apply-btn');
-    
-    if (applyBtn) {
-        applyBtn.addEventListener('click', function() {
-            const promoCode = document.querySelector('.promo-code input').value;
-            
-            if (promoCode) {
-                // In a real app, this would validate the promo code
-                showToast('Promo code applied: 10% off');
-            } else {
-                showToast('Please enter a promo code');
-            }
-        });
+    if (document.querySelector('.item-count')) {
+        document.querySelector('.item-count').textContent = inCart.length;
+        document.querySelector('.subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.querySelector('.tax').textContent = `$${tax.toFixed(2)}`;
+        document.querySelector('.total-price').textContent = `$${total.toFixed(2)}`;
     }
 }
 
-function setupCheckoutButton() {
-    const checkoutBtn = document.querySelector('.checkout-btn');
+// Event Listeners
+function setupCartEventListeners() {
+    // Delegate all cart item interactions
+    document.addEventListener('click', function(e) {
+        // Quantity minus
+        if (e.target.classList.contains('qty-minus')) {
+            const item = e.target.closest('[data-id]');
+            const input = item.querySelector('input');
+            const newQty = parseInt(input.value) - 1;
+            updateQuantity(parseInt(item.dataset.id), newQty);
+        }
+        
+        // Quantity plus
+        if (e.target.classList.contains('qty-plus')) {
+            const item = e.target.closest('[data-id]');
+            const input = item.querySelector('input');
+            const newQty = parseInt(input.value) + 1;
+            updateQuantity(parseInt(item.dataset.id), newQty);
+        }
+        
+        // Save for later
+        if (e.target.classList.contains('save-for-later') || e.target.closest('.save-for-later')) {
+            const item = e.target.closest('[data-id]');
+            toggleSaveForLater(parseInt(item.dataset.id));
+        }
+        
+        // Move to cart
+        if (e.target.classList.contains('move-to-cart') || e.target.closest('.move-to-cart')) {
+            const item = e.target.closest('[data-id]');
+            toggleSaveForLater(parseInt(item.dataset.id));
+        }
+        
+        // Remove item
+        if (e.target.classList.contains('remove-item') || e.target.closest('.remove-item')) {
+            const item = e.target.closest('[data-id]');
+            removeFromCart(parseInt(item.dataset.id));
+        }
+    });
     
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', function() {
-            if (cart.length > 0) {
-                if (currentUser) {
-                    // In a real app, proceed to checkout
-                    window.location.href = 'checkout.html';
-                } else {
-                    // Redirect to login
-                    window.location.href = 'login.html?redirect=checkout.html';
-                }
-            } else {
-                showToast('Your cart is empty');
-            }
-        });
-    }
+    // Quantity input changes
+    document.addEventListener('change', function(e) {
+        if (e.target.matches('.quantity-selector input')) {
+            const item = e.target.closest('[data-id]');
+            updateQuantity(parseInt(item.dataset.id), parseInt(e.target.value));
+        }
+    });
+    
+    // Checkout button
+    document.getElementById('checkoutBtn')?.addEventListener('click', function() {
+        if (cart.filter(item => !item.savedForLater).length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+        window.location.href = 'checkout.html';
+    });
+    
+    // Apply promo code
+    document.querySelector('.apply-btn')?.addEventListener('click', function() {
+        const promoCode = document.querySelector('.promo-code input').value;
+        if (promoCode) {
+            alert(`Promo code "${promoCode}" applied! (Demo)`);
+        }
+    });
+    
+    // Find store button
+    document.querySelector('.find-store-btn')?.addEventListener('click', function() {
+        alert('Store finder would open here');
+    });
 }
 
 function displayRecentlyViewed() {
@@ -1235,4 +1392,65 @@ toastStyles.textContent = `
         opacity: 1;
     }
 `;
+
+//for video at id 3
+document.addEventListener('DOMContentLoaded', function() {
+  // Find product with id 3
+  const product = products.find(p => p.id === 3);
+  
+  if (product) {
+    displayProductMedia(product);
+  }
+});
+
+function displayProductMedia(product) {
+  const mainImage = document.getElementById('main-product-image');
+  const videoElement = document.getElementById('product-video');
+  const thumbnailsContainer = document.querySelector('.thumbnails');
+  
+  // Clear previous thumbnails
+  thumbnailsContainer.innerHTML = '';
+  
+  // Display first image by default
+  mainImage.src = product.images[0];
+  mainImage.style.display = 'block';
+  videoElement.style.display = 'none';
+  
+  // Create thumbnails
+  product.images.forEach((media, index) => {
+    const thumbnail = document.createElement('div');
+    thumbnail.className = 'thumbnail';
+    
+    if (media.endsWith('.mp4')) {
+      // It's a video - create a video thumbnail
+      thumbnail.innerHTML = `
+        <video class="thumbnail-video" muted>
+          <source src="${media}" type="video/mp4">
+        </video>
+        <span class="play-icon">▶</span>
+      `;
+    } else {
+      // It's an image
+      thumbnail.innerHTML = `<img src="${media}" alt="Thumbnail ${index}">`;
+    }
+    
+    thumbnail.addEventListener('click', () => {
+      if (media.endsWith('.mp4')) {
+        // Show video in main display
+        mainImage.style.display = 'none';
+        videoElement.style.display = 'block';
+        videoElement.src = media;
+        videoElement.play();
+      } else {
+        // Show image in main display
+        mainImage.style.display = 'block';
+        videoElement.style.display = 'none';
+        videoElement.pause();
+        mainImage.src = media;
+      }
+    });
+    
+    thumbnailsContainer.appendChild(thumbnail);
+  });
+}
 document.head.appendChild(toastStyles);

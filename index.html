@@ -48,17 +48,176 @@
         </div>
     </nav>
 
-    <!-- Hero Banner -->
+    <!-- Hero Banner with Slider -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Black Friday Deals Are Live!</h1>
-                <p>Up to 70% off on selected items</p>
-                <a href="product.html" class="btn">Shop Now</a>
+        <div class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="slide active" style="background-image: url('assets/imageslider/619geyiQI5L._SX3000_.jpg')">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Black Friday Deals Are Live!</h1>
+                        <p>Up to 70% off on selected items</p>
+                        <a href="product.html" class="btn">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide" style="background-image: url('assets/imageslider/slider2.jpg')">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Limited Time Offers!</h1>
+                        <p>Don't miss these exclusive discounts</p>
+                        <a href="product.html" class="btn">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+             <!-- Slide 3-->
+            <div class="slide" style="background-image: url('assets/imageslider/slider2.jpg')">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Limited Time Offers!</h1>
+                        <p>Don't miss these exclusive discounts</p>
+                        <a href="product.html" class="btn">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slider Controls -->
+            <button class="slider-prev">❮</button>
+            <button class="slider-next">❯</button>
+
+            <!-- Slider Indicators -->
+            <div class="slider-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+
             </div>
         </div>
     </section>
+    <!-- CSS Styles -->
+    <style>
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
 
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color:black;
+            text-align: center;
+            padding-top: 200px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .slider-prev,
+        .slider-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 24px;
+        }
+
+        .slider-prev {
+            left: 20px;
+        }
+
+        .slider-next {
+            right: 20px;
+        }
+
+        .slider-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background: white;
+        }
+    </style>
+    <!-- JavaScript for Auto-Sliding -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.slide');
+            const indicators = document.querySelectorAll('.indicator');
+            let currentSlide = 0;
+
+            function nextSlide() {
+                // Hide current slide
+                slides[currentSlide].classList.remove('active');
+                indicators[currentSlide].classList.remove('active');
+
+                // Move to next slide
+                currentSlide = (currentSlide + 1) % slides.length;
+
+                // Show new slide
+                slides[currentSlide].classList.add('active');
+                indicators[currentSlide].classList.add('active');
+            }
+
+            // Auto-advance every 5 seconds
+            setInterval(nextSlide, 5000);
+
+            // Manual navigation for indicators
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    slides[currentSlide].classList.remove('active');
+                    indicators[currentSlide].classList.remove('active');
+                    currentSlide = index;
+                    slides[currentSlide].classList.add('active');
+                    indicators[currentSlide].classList.add('active');
+                });
+            });
+
+            // Manual navigation for buttons
+            document.querySelector('.slider-prev').addEventListener('click', () => {
+                slides[currentSlide].classList.remove('active');
+                indicators[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                indicators[currentSlide].classList.add('active');
+            });
+
+            document.querySelector('.slider-next').addEventListener('click', nextSlide);
+        });
+    </script>
     <!-- Deals of the Day -->
     <section class="deals">
         <div class="container">
@@ -68,8 +227,7 @@
                 <a href="product.html?id=1" class="product-link">
                     <div class="product-card">
                         <div class="product-badge">Hot Deal</div>
-                        <img src="assets\airpodsimages\airpods1.png"
-                            alt="Product Image">
+                        <img src="assets\airpodsimages\airpods1.png" alt="Product Image">
                         <h3>Apple AirPods Pro</h3>
                         <div class="price">
                             <span class="current-price">$199.99</span>
@@ -173,6 +331,67 @@
                         <button class="add-to-cart" data-id="4">Add to Cart</button>
                     </div>
                 </a>
+                <!-- product 6 -->
+                <a href="product.html?id=6" class="product-link">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/51JNqP2C4rL.__AC_SY445_SX342_QL70_FMwebp_.jpg"
+                            alt="Product Image">
+                        <h3>Sony WH-1000XM4 Headphones</h3>
+                        <div class="price">
+                            <span class="current-price">$348.00</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(1836)</span>
+                        </div>
+                        <button class="add-to-cart" data-id="4">Add to Cart</button>
+                    </div>
+                </a>
+                <!-- product 7 -->
+                <a href="product.html?id=7" class="product-link">
+                    <div class="product-card">
+                        <img src="assets\Apple AirPods Max\applehead1.jpg"
+                            alt="Product Image">
+                        <h3>Apple AirPods Max</h3>
+                        <div class="price">
+                            <span class="current-price">$499.99</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(154)</span>
+                        </div>
+                        <button class="add-to-cart" data-id="4">Add to Cart</button>
+                    </div>
+                </a>
+                <!-- product 8 -->
+                 <a href="product.html?id=8" class="product-link">
+                    <div class="product-card">
+                        <img src="https://imgs.search.brave.com/aau2IRkgJ0IGu-V5l5jPlp0pazE0rSGvr0L-VgTMFmI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YmVhdHNieWRyZS5j/b20vY29udGVudC9k/YW0vYmVhdHMvd2Vi/L3Byb2R1Y3QvZWFy/YnVkcy9iZWF0cy1m/aXQtcHJvL3BkcC9m/aXRwcm8tcGRwLXAw/Mi5wbmcubGFyZ2Uu/MngucG5n"
+                            alt="Product Image">
+                        <h3>Beats Fit Pro</h3>
+                        <div class="price">
+                            <span class="current-price">$199.99</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(654)</span>
+                        </div>
+                        <button class="add-to-cart" data-id="4">Add to Cart</button>
+                    </div>
+                </a>
+
 
             </div>
         </div>
@@ -402,7 +621,7 @@
                 left: 0;
                 bottom: 0;
                 width: 280px;
-                background: white;
+                background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
                 z-index: 999;
                 box-shadow: 2px 0 10px rgba(0,0,0,0.1);
                 transform: translateX(-100%);
@@ -432,13 +651,13 @@
                 padding: 15px 25px;
                 display: flex;
                 align-items: center;
-                color: #333;
+                color: white;
                 text-decoration: none;
                 transition: background 0.2s;
             }
             
             .main-nav li a:hover {
-                background: #f8f8f8;
+                background-color: rgba(255, 255, 255, 0.1);
             }
             
             .main-nav li a i {
