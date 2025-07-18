@@ -7,6 +7,7 @@
     <title>Walmart Clone - Save Money. Live Better.</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hero.css">
 </head>
 
 <body>
@@ -48,176 +49,527 @@
         </div>
     </nav>
 
-    <!-- Hero Banner with Slider -->
-    <section class="hero">
-        <div class="hero-slider">
-            <!-- Slide 1 -->
-            <div class="slide active" style="background-image: url('assets/imageslider/619geyiQI5L._SX3000_.jpg')">
-                <div class="container">
-                    <div class="hero-content">
-                        <h1>Black Friday Deals Are Live!</h1>
-                        <p>Up to 70% off on selected items</p>
-                        <a href="product.html" class="btn">Shop Now</a>
+    <section class="mega-grid-system">
+        <!-- Row 1: Mega Hero with Multiple Categories -->
+        <div class="mega-hero">
+            <!-- Left Side - VR Showcase -->
+            <div class="hero-vr">
+                <!-- Video Background -->
+                <video class="video-background" autoplay loop muted playsinline>
+                    <source src="assets/Vr head/metavr.mp4" type="video/mp4">
+                </video>
+
+                <!-- Content Overlay -->
+                <div class="vr-content">
+                    <span class="category-badge">Virtual Reality</span>
+                    <h2>Meta Quest 3 Pro <span class="price-tag">$699</span></h2>
+                    <p>4K+ Resolution • 120Hz • Mixed Reality</p>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <div class="spec-icon">👁️</div>
+                            <span>2064×2208</span>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">⚡</div>
+                            <span>Snapdragon XR2</span>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">🔋</div>
+                            <span>6h Battery</span>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-icon">🔄</div>
+                            <span>120Hz</span>
+                        </div>
                     </div>
+                    <a href="#" class="cta-button vr-cta">Shop VR Headsets</a>
+                </div>
+                <div class="vr-product-float">
+                    <img src="assets/images/quest3.png" alt="Meta Quest 3">
                 </div>
             </div>
 
-            <!-- Slide 2 -->
-            <div class="slide" style="background-image: url('assets/imageslider/slider2.jpg')">
-                <div class="container">
-                    <div class="hero-content">
-                        <h1>Limited Time Offers!</h1>
-                        <p>Don't miss these exclusive discounts</p>
-                        <a href="product.html" class="btn">Shop Now</a>
+            <!-- Right Side - Multi-Category Grid -->
+            <div class="hero-multi-category">
+                <!-- Top Right - Fashion -->
+                <div class="category-fashion">
+                    <video class="category-video-bg" autoplay loop muted playsinline>
+                        <source src="assets/Vr head/fashion.mp4" type="video/mp4">
+                    </video>
+                    <div class="category-overlay"></div>
+                    <div class="category-content">
+                        <span class="season-tag">Summer Collection</span>
+                        <h3>Designer Fashion</h3>
+                        <div class="brand-scroll">
+                            <span>Gucci</span>
+                            <span>Prada</span>
+                            <span>Balenciaga</span>
+                        </div>
+                        <a href="#" class="category-link">Shop Now →</a>
                     </div>
                 </div>
-            </div>
-             <!-- Slide 3-->
-            <div class="slide" style="background-image: url('assets/imageslider/slider2.jpg')">
-                <div class="container">
-                    <div class="hero-content">
-                        <h1>Limited Time Offers!</h1>
-                        <p>Don't miss these exclusive discounts</p>
-                        <a href="product.html" class="btn">Shop Now</a>
+
+                <div class="hero-bottom-right">
+                    <!-- Electronics Video Background -->
+                    <div class="category-electronics">
+                        <video class="category-video-bg" autoplay loop muted playsinline>
+                            <source src="assets/Vr head/apple airpodsApple.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <h3>Latest Gadgets</h3>
+                            <div class="product-tags">
+                                <span>Smartphones</span>
+                                <span>Laptops</span>
+                                <span>Cameras</span>
+                            </div>
+                            <a href="#" class="category-link">Explore →</a>
+                        </div>
+                    </div>
+
+                    <!-- Perfumes Video Background -->
+                    <div class="category-perfumes">
+                        <video class="category-video-bg" autoplay loop muted playsinline>
+                            <source src="assets/Vr head/perfumes.mp4" type="video/mp4">
+                        </video>
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <h3>Luxury Scents</h3>
+                            <div class="scent-notes">
+                                <span>Floral</span>
+                                <span>Woody</span>
+                                <span>Citrus</span>
+                            </div>
+                            <a href="#" class="category-link">Discover →</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Slider Controls -->
-            <button class="slider-prev">❮</button>
-            <button class="slider-next">❯</button>
-
-            <!-- Slider Indicators -->
-            <div class="slider-indicators">
-                <span class="indicator active"></span>
-                <span class="indicator"></span>
-                <span class="indicator"></span>
-
             </div>
         </div>
-    </section>
-    <!-- CSS Styles -->
-    <style>
-        .hero-slider {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-        }
-
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-
-        .slide.active {
-            opacity: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color:black;
-            text-align: center;
-            padding-top: 200px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-        }
-
-        .slider-prev,
-        .slider-next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 24px;
-        }
-
-        .slider-prev {
-            left: 20px;
-        }
-
-        .slider-next {
-            right: 20px;
-        }
-
-        .slider-indicators {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-        }
-
-        .indicator.active {
-            background: white;
-        }
-    </style>
-    <!-- JavaScript for Auto-Sliding -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const slides = document.querySelectorAll('.slide');
-            const indicators = document.querySelectorAll('.indicator');
-            let currentSlide = 0;
-
-            function nextSlide() {
-                // Hide current slide
-                slides[currentSlide].classList.remove('active');
-                indicators[currentSlide].classList.remove('active');
-
-                // Move to next slide
-                currentSlide = (currentSlide + 1) % slides.length;
-
-                // Show new slide
-                slides[currentSlide].classList.add('active');
-                indicators[currentSlide].classList.add('active');
+        <style>
+            /* Base Mega Hero Styles */
+            .mega-hero {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                height: 600px;
             }
 
-            // Auto-advance every 5 seconds
-            setInterval(nextSlide, 5000);
+            /* Common Video Background Styles */
+            .video-background,
+            .category-video-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 1;
+                filter: brightness(0.85);
+            }
 
-            // Manual navigation for indicators
-            indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    slides[currentSlide].classList.remove('active');
-                    indicators[currentSlide].classList.remove('active');
-                    currentSlide = index;
-                    slides[currentSlide].classList.add('active');
-                    indicators[currentSlide].classList.add('active');
-                });
-            });
+            /* Common Overlay Styles */
+            .category-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+                z-index: 2;
+            }
 
-            // Manual navigation for buttons
-            document.querySelector('.slider-prev').addEventListener('click', () => {
-                slides[currentSlide].classList.remove('active');
-                indicators[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-                slides[currentSlide].classList.add('active');
-                indicators[currentSlide].classList.add('active');
-            });
+            /* VR Section Specific */
+            .hero-vr {
+                position: relative;
+                border-radius: 20px;
+                overflow: hidden;
+            }
 
-            document.querySelector('.slider-next').addEventListener('click', nextSlide);
-        });
-    </script>
+            .vr-content {
+                position: relative;
+                z-index: 3;
+                padding: 40px;
+                color: white;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .vr-product-float {
+                position: absolute;
+                right: 5%;
+                bottom: 10%;
+                z-index: 4;
+                animation: float 6s ease-in-out infinite;
+            }
+
+            /* Right Side Grid */
+            .hero-multi-category {
+                display: grid;
+                grid-template-rows: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .category-fashion,
+            .category-electronics,
+            .category-perfumes {
+                position: relative;
+                border-radius: 15px;
+                overflow: hidden;
+            }
+
+            .category-content {
+                position: relative;
+                z-index: 3;
+                padding: 25px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                color: white;
+            }
+
+            .hero-bottom-right {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            /* Animations */
+            @keyframes float {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-20px);
+                }
+            }
+
+            /* Mobile Responsive */
+            @media (max-width: 768px) {
+                .mega-hero {
+                    grid-template-columns: 1fr;
+                    height: auto;
+                }
+
+                .hero-bottom-right {
+                    grid-template-columns: 1fr;
+                }
+
+                .video-background,
+                .category-video-bg {
+                    min-width: 100%;
+                    min-height: 100%;
+                    width: auto;
+                    height: auto;
+                }
+            }
+        </style>
+        <!-- Row 2: Dining & Furniture Showcase -->
+        <div class="furniture-showcase">
+            <div class="showcase-header">
+                <h2>Premium Dining Collections</h2>
+                <div class="style-filter">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Modern</button>
+                    <button class="filter-btn">Rustic</button>
+                    <button class="filter-btn">Minimalist</button>
+                </div>
+            </div>
+
+            <div class="furniture-grid">
+                <!-- Featured Dining Set -->
+                <div class="featured-dining">
+                    <div class="dining-image" style="background-image: url('assets/Vr head/pexels-heyho-7195598.jpg');">
+                        <div class="price-bubble">
+                            <span class="original-price">$2,499</span>
+                            <span class="sale-price">$1,799</span>
+                        </div>
+                    </div>
+                    <div class="dining-info">
+                        <h3>Vesper 7-Piece Dining Set</h3>
+                        <div class="material-info">
+                            <span>Solid Oak</span>
+                            <span>Italian Leather</span>
+                        </div>
+                        <div class="rating">
+                            <div class="stars">★★★★★</div>
+                            <span class="review-count">(142)</span>
+                        </div>
+                        <button class="quick-view-btn">Quick View</button>
+                    </div>
+                </div>
+
+                <!-- Dining Carousel -->
+                <div class="dining-carousel">
+                    <div class="carousel-header">
+                        <h3>More Dining Options</h3>
+                        <div class="carousel-controls">
+                            <button class="carousel-prev">❮</button>
+                            <button class="carousel-next">❯</button>
+                        </div>
+                    </div>
+                    <div class="carousel-track">
+                        <div class="carousel-item">
+                            <img src="https://cdn11.bigcommerce.com/s-8npu8mt3gx/images/stencil/640w/products/11632/71404/63999-DzTPJk__34392.1747948621.png?c=2"
+                                alt="Modern Dining Table">
+                            <div class="item-info">
+                                <span class="item-name">Nordic 6-Seater</span>
+                                <span class="item-price">$1,299</span>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://cdn11.bigcommerce.com/s-8npu8mt3gx/product_images/attribute_rule_images/609358_source_1750347036.jpg?vid=variantid_31497"
+                                alt="Extendable Table">
+                            <div class="item-info">
+                                <span class="item-name">Extendable Oak Table</span>
+                                <span class="item-price">$1,599</span>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://imageresizer.furnituredealer.net/img/remote/images.furnituredealer.net/img/products/lexington/color/ariana-534564672_732-875-48c-b1.jpg?format=webp&quality=85&width=450&height=450&scale=both&trim.threshold=20&trim.percentpadding=1"
+                                alt="Glass Dining Set">
+                            <div class="item-info">
+                                <span class="item-name">Glass Top Collection</span>
+                                <span class="item-price">$2,199</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complementary Furniture -->
+                <div class="complementary-furniture">
+                    <div class="comp-item">
+                        <img src="https://imgs.search.brave.com/dust9oxXeI4tFiYdkwU17wo9uwtYvZxGaq5iSFauLgo/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5ncmFwaGFzc2V0/cy5jb20vZ0Jya2dv/cE5UYjJlTmo1cldX/VEo"
+                            alt="Dining Chair">
+                        <div class="comp-info">
+                            <span>Vesper Dining Chair</span>
+                            <span>$249 each</span>
+                        </div>
+                    </div>
+                    <div class="comp-item">
+                        <img src="https://assets.wfcdn.com/im/29382826/resize-h600-w600%5Ecompr-r85/3303/330334225/Kaveri+63%27%27+Sideboard.jpg"
+                            alt="Sideboard">
+                        <div class="comp-info">
+                            <span>Modern Sideboard</span>
+                            <span>$899</span>
+                        </div>
+                    </div>
+                    <div class="comp-item">
+                        <img src="https://lights.com/cdn/shop/files/LC005721_WB_Alt5_1500.jpg?v=1742926960&width=460"
+                            alt="Pendant Light">
+                        <div class="comp-info">
+                            <span>Pendant Lighting</span>
+                            <span>$349</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Tech & Fashion Split -->
+        <div class="split-category-section">
+            <!-- Tech Side -->
+            <div class="tech-side">
+                <div class="section-header">
+                    <h2>Tech Essentials</h2>
+                    <div class="tech-tabs">
+                        <button class="tech-tab active">VR & AR</button>
+                        <button class="tech-tab">Audio</button>
+                        <button class="tech-tab">Smart Home</button>
+                    </div>
+                </div>
+
+                <div class="tech-products">
+                    <!-- VR Headset Featured -->
+                    <div class="featured-tech">
+                        <div class="tech-image-container">
+                            <img src="assets/Vr head/meta.webp" alt="VR Headset">
+                            <div class="tech-badge">Best Seller</div>
+                        </div>
+                        <div class="tech-info">
+                            <h3>Sony PlayStation VR2</h3>
+                            <div class="tech-specs">
+                                <span>OLED 2000x2040</span>
+                                <span>110° FOV</span>
+                                <span>Eye Tracking</span>
+                            </div>
+                            <div class="price-container">
+                                <span class="current-price">$549.99</span>
+                                <span class="original-price">$599.99</span>
+                            </div>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Tech Product Grid -->
+                    <div class="tech-grid">
+                        <div class="tech-product">
+                            <div class="product-image">
+                                <img src="assets/Apple airpods(3rd gen)/airpod1.webp" alt="Wireless Earbuds">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Sony</span>
+                                <h4>WF-1000XM4 Earbuds</h4>
+                                <div class="price">$279.99</div>
+                                <div class="quick-actions">
+                                    <button class="wishlist-btn">♡</button>
+                                    <button class="view-btn">View</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tech-product">
+                            <div class="product-image">
+                                <img src="https://m.media-amazon.com/images/I/71jiSFopPQL._AC_UL480_FMwebp_QL65_.jpg"
+                                    alt="Smartwatch">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Samsung</span>
+                                <h4>Galaxy Watch 5 Pro</h4>
+                                <div class="price">$449.99</div>
+                                <div class="quick-actions">
+                                    <button class="wishlist-btn">♡</button>
+                                    <button class="view-btn">View</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tech-product">
+                            <div class="product-image">
+                                <img src="https://m.media-amazon.com/images/I/81-qmWPiqTL._AC_UL480_FMwebp_QL65_.jpg"
+                                    alt="Smart Speaker">
+                            </div>
+                            <div class="product-info">
+                                <span class="brand">Google</span>
+                                <h4>Nest Audio</h4>
+                                <div class="price">$99.99</div>
+                                <div class="quick-actions">
+                                    <button class="wishlist-btn">♡</button>
+                                    <button class="view-btn">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fashion Side -->
+            <div class="fashion-side">
+                <div class="section-header">
+                    <h2>Summer Fashion</h2>
+                    <div class="view-all">View All →</div>
+                </div>
+
+                <div class="fashion-tabs">
+                    <button class="fashion-tab active">Men</button>
+                    <button class="fashion-tab">Women</button>
+                    <button class="fashion-tab">Accessories</button>
+                </div>
+
+                <div class="fashion-showcase">
+                    <div class="fashion-main">
+                        <div class="fashion-item large">
+                            <img src="https://m.media-amazon.com/images/I/6109JLtSHjL._AC_UL480_FMwebp_QL65_.jpg"
+                                alt="Men's Suit">
+                            <div class="item-overlay">
+                                <span class="designer">Hugo Boss</span>
+                                <span class="price">$599</span>
+                                <button class="quick-view">+ Quick View</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fashion-secondary">
+                        <div class="fashion-item">
+                            <img src="https://m.media-amazon.com/images/I/61gMmKVyaYL._AC_SY741_.jpg"
+                                alt="Women's Dress">
+                            <div class="item-overlay">
+                                <span class="designer">Dolce & Gabbana</span>
+                                <span class="price">$429</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 4: Perfume Carousel -->
+        <div class="perfume-carousel-section">
+            <div class="carousel-header">
+                <h2>Luxury Fragrances</h2>
+                <div class="scent-categories">
+                    <span class="scent-category active">All</span>
+                    <span class="scent-category">Floral</span>
+                    <span class="scent-category">Woody</span>
+                    <span class="scent-category">Fresh</span>
+                </div>
+            </div>
+
+            <div class="perfume-carousel">
+                <div class="perfume-item featured">
+                    <div class="perfume-image">
+                        <img src="https://m.media-amazon.com/images/I/81xna-DFqHL._AC_UL480_FMwebp_QL65_.jpg"
+                            alt="Chanel No. 5">
+                        <div class="perfume-badge">Iconic</div>
+                    </div>
+                    <div class="perfume-info">
+                        <span class="brand">Chanel</span>
+                        <h3>No. 5 Eau de Parfum</h3>
+                        <div class="scent-notes">
+                            <span>Floral</span>
+                            <span>Aldehdyic</span>
+                            <span>Powdery</span>
+                        </div>
+                        <div class="price">$130 (50ml)</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="perfume-item">
+                    <div class="perfume-image">
+                        <img src="https://m.media-amazon.com/images/I/61SJliOnezL._AC_UL480_FMwebp_QL65_.jpg"
+                            alt="Sauvage">
+                    </div>
+                    <div class="perfume-info">
+                        <span class="brand">Dior</span>
+                        <h3>Sauvage</h3>
+                        <div class="price">$108 (60ml)</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="perfume-item">
+                    <div class="perfume-image">
+                        <img src="https://m.media-amazon.com/images/I/61lZEdscjyL._AC_UL480_FMwebp_QL65_.jpg"
+                            alt="Black Opium">
+                    </div>
+                    <div class="perfume-info">
+                        <span class="brand">Yves Saint Laurent</span>
+                        <h3>Black Opium</h3>
+                        <div class="price">$92 (50ml)</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="perfume-item">
+                    <div class="perfume-image">
+                        <img src="assets/images/perfume-4.jpg" alt="Acqua di Gio">
+                    </div>
+                    <div class="perfume-info">
+                        <span class="brand">Giorgio Armani</span>
+                        <h3>Acqua di Gio</h3>
+                        <div class="price">$115 (75ml)</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
     <!-- Deals of the Day -->
     <section class="deals">
         <div class="container">
@@ -354,8 +706,7 @@
                 <!-- product 7 -->
                 <a href="product.html?id=7" class="product-link">
                     <div class="product-card">
-                        <img src="assets\Apple AirPods Max\applehead1.jpg"
-                            alt="Product Image">
+                        <img src="assets\Apple AirPods Max\applehead1.jpg" alt="Product Image">
                         <h3>Apple AirPods Max</h3>
                         <div class="price">
                             <span class="current-price">$499.99</span>
@@ -372,7 +723,7 @@
                     </div>
                 </a>
                 <!-- product 8 -->
-                 <a href="product.html?id=8" class="product-link">
+                <a href="product.html?id=8" class="product-link">
                     <div class="product-card">
                         <img src="https://imgs.search.brave.com/aau2IRkgJ0IGu-V5l5jPlp0pazE0rSGvr0L-VgTMFmI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/YmVhdHNieWRyZS5j/b20vY29udGVudC9k/YW0vYmVhdHMvd2Vi/L3Byb2R1Y3QvZWFy/YnVkcy9iZWF0cy1m/aXQtcHJvL3BkcC9m/aXRwcm8tcGRwLXAw/Mi5wbmcubGFyZ2Uu/MngucG5n"
                             alt="Product Image">
